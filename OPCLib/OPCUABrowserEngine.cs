@@ -98,6 +98,7 @@ namespace VlixOPC
                     }
                     this.RegisteredTags.Remove(InactiveTag.Id);
                 }
+                return Task.CompletedTask;
             };
             CheckInactivityTimer.Start();
         }

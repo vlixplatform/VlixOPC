@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
+using System.Threading.Tasks;
 using Vlix;
 
 namespace VlixOPC
@@ -12,9 +13,6 @@ namespace VlixOPC
     public class VlixOPCContract : OPCBrowserContract, iVlixOPCContract
     {
         //This is for IKeepAlive
-        public void TrySendKeepAlivePulse()
-        {
-        }
 
         public bool TryGetLogs(DateTime GetLogsNewerThanAndExcludingThisDateTime_InUtc, out List<LogStruct> LogList, string MACAddress = "")
         {
@@ -99,6 +97,11 @@ namespace VlixOPC
                 return false;
             }
             
+        }
+
+        Task iKeepAlive.TrySendKeepAlivePulse()
+        {
+            return Task.CompletedTask;
         }
     }
 

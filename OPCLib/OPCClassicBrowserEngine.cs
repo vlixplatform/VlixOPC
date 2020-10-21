@@ -43,7 +43,7 @@ namespace VlixOPC
             //Check for Tag Inactivity every 5s. Every call by client will update it's activity.
             //If tag has been inactive for more than 3x it's update interval, remove the tag from subscription (5s min inactivity time)
             OPTimer CheckInactivityTimer = new OPTimer("OPC Classic Browser Engine Check Inactivity Timer", 5000);
-            CheckInactivityTimer.Elapsed += (s) =>
+            CheckInactivityTimer.Elapsed +=  (s) =>
             {
                 List<RegisteredTag> InactiveTags = this.RegisteredTags.Values.Where(RT => 
                 {
@@ -60,6 +60,7 @@ namespace VlixOPC
                     }
                     this.RegisteredTags.Remove(InactiveTag.Id);
                 }
+                return Task.CompletedTask;
             };
             CheckInactivityTimer.Start();
         }

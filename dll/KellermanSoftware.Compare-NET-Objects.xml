@@ -42,21 +42,21 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Cache.GetPropertyValue(KellermanSoftware.CompareNetObjects.ComparisonResult,System.Type,System.Object,System.String)">
+        <member name="M:KellermanSoftware.CompareNetObjects.Cache.GetPropertyValue(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Type,System.Object,System.String)">
             <summary>
             Get the value of a property
             </summary>
-            <param name="result"> </param>
+            <param name="config"> </param>
             <param name="type"></param>
             <param name="objectValue"></param>
             <param name="propertyName"></param>
             <returns></returns>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Cache.GetPropertyInfo(KellermanSoftware.CompareNetObjects.ComparisonResult,System.Type)">
+        <member name="M:KellermanSoftware.CompareNetObjects.Cache.GetPropertyInfo(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Type)">
             <summary>
             Get a list of the properties in a type
             </summary>
-            <param name="result"> </param>
+            <param name="config"> </param>
             <param name="type"></param>
             <returns></returns>
         </member>
@@ -75,140 +75,50 @@
             <param name="type"></param>
             <returns></returns>
         </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.CompareParms">
+        <member name="T:KellermanSoftware.CompareNetObjects.CompareException">
             <summary>
-            Compare Parameters
+            CompareException with a Result Property
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Config">
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareException.#ctor(KellermanSoftware.CompareNetObjects.ComparisonResult,System.String)">
             <summary>
-            The configuration settings
+            CompareException Constructor
+            </summary>
+            <param name="result"></param>
+            <param name="message"></param>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareException.Result">
+            <summary>
+            The comparison Result
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Object1Type">
+        <member name="T:KellermanSoftware.CompareNetObjects.CompareExtensions">
             <summary>
-            The type of the first object
+            A set of BDD style comparison extensions for use with Testing Frameworks
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Object2Type">
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareExtensions.Config">
             <summary>
-            The type of the second object
+            Alter the configuration for the comparison
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Result">
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareExtensions.ShouldCompare``1(``0,``0,System.String)">
             <summary>
-            Details about the comparison
+            Throws a CompareException if the classes are not equal
             </summary>
+            <typeparam name="T"></typeparam>
+            <param name="actual"></param>
+            <param name="expected"></param>
+            <param name="message"></param>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.ParentObject1">
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareExtensions.ShouldNotCompare``1(``0,``0,System.String)">
             <summary>
-            A reference to the parent object1
+            Throws a CompareException if the classes are equal
             </summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.ParentObject2">
-            <summary>
-            A reference to the parent object2
-            </summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Object1">
-            <summary>
-            The first object to be compared
-            </summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Object2">
-            <summary>
-            The second object to be compared
-            </summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.BreadCrumb">
-            <summary>
-            The breadcrumb in the tree
-            </summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.LogicEqualityComparer">
-            <summary>Implements methods to support the comparison of objects for equality, in a customizable fashion.</summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1">
-            <summary>Implements methods to support the comparison of objects for equality, in a customizable fashion.</summary>
-            <typeparam name="T">The comparison object type.</typeparam>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1.Equals(`0,`0)">
-            <summary>Compare two objects of the same type to each other.</summary>
-            <returns>True if the objects are considered equivalent, according to the current CompareLogic.</returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1.GetHashCode(`0)">
-            <summary>Retrieves the hash of the specified object.</summary>
-            <param name="obj">The object to retrieve a hash for.</param>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1.CompareLogic">
-            <summary>Defines the configuration and logic by which Equals comparisons will be performed.</summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1.UseObjectHashes">
-            <summary>Gets or sets a value indicating whether the base object hashes should be used.</summary>
-            <remarks>
-            False by default to allow CompareLogic to evaluate equivalence of otherwise instance-sensitive hashing objects.
-            NOTE: Any object which doesn't override GetHashCode will behave this way, so this property should generally be left false.
-            </remarks>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.FileHelper">
-            <summary>
-            Helper methods for files and directories
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.FileHelper.GetCurrentDirectory">
-            <summary>
-            Get the current directory of the executing assembly
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.FileHelper.PathSlash(System.String)">
-            <summary>
-            Ensure the passed string ends with a directory separator character unless the string is blank.
-            </summary>
-            <param name="path">The string to append the backslash to.</param>
-            <returns>String with a "/" on the end</returns>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.ICompareLogic">
-            <summary>
-            Interface for mocking
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ICompareLogic.Compare(System.Object,System.Object)">
-            <summary>
-            Compare two objects of the same type to each other.
-            </summary>
-            <remarks>
-            Check the Differences or DifferencesString Properties for the differences.
-            Default MaxDifferences is 1 for performance
-            </remarks>
-            <param name="object1"></param>
-            <param name="object2"></param>
-            <returns>True if they are equal</returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ICompareLogic.ClearCache">
-            <summary>
-            Reflection properties and fields are cached. By default this cache is cleared automatically after each compare.
-            </summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.ICompareLogic.Config">
-            <summary>
-            The default configuration
-            </summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.ProcessHelper">
-            <summary>
-            Helper methods for processes
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ProcessHelper.Shell(System.String,System.String,System.Diagnostics.ProcessWindowStyle,System.Boolean)">
-            <summary>
-            Execute an external program.
-            </summary>
-            <param name="executablePath">Path and filename of the executable.</param>
-            <param name="arguments">Arguments to pass to the executable.</param>
-            <param name="windowStyle">Window style for the process (hidden, minimized, maximized, etc).</param>
-            <param name="waitUntilFinished">Wait for the process to finish.</param>
-            <returns>Exit Code</returns>
+            <typeparam name="T"></typeparam>
+            <param name="actual"></param>
+            <param name="expected"></param>
+            <param name="message"></param>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.CompareLogic">
              <summary>
@@ -231,6 +141,11 @@
                 Console.WriteLine(result.DifferencesString);
              
              </example>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareLogic.Config">
+            <summary>
+            The default configuration
+            </summary>
         </member>
         <member name="M:KellermanSoftware.CompareNetObjects.CompareLogic.#ctor">
             <summary>
@@ -257,8 +172,8 @@
             Check the Differences or DifferencesString Properties for the differences.
             Default MaxDifferences is 1 for performance
             </remarks>
-            <param name="object1"></param>
-            <param name="object2"></param>
+            <param name="expectedObject">The expected object value to compare</param>
+            <param name="actualObject">The actual object value to compare</param>
             <returns>True if they are equal</returns>
         </member>
         <member name="M:KellermanSoftware.CompareNetObjects.CompareLogic.ClearCache">
@@ -266,10 +181,29 @@
             Reflection properties and fields are cached. By default this cache is cleared automatically after each compare.
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.CompareLogic.Config">
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareLogic.SaveConfiguration(System.IO.Stream)">
             <summary>
-            The default configuration
+            Save the current configuration to the passed stream
             </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareLogic.LoadConfiguration(System.IO.Stream)">
+            <summary>
+            Load the current configuration from a json stream
+            </summary>
+            <param name="stream"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareLogic.LoadConfiguration(System.String)">
+            <summary>
+            Load the current configuration from a json stream
+            </summary>
+            <param name="filePath"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareLogic.SaveConfiguration(System.String)">
+            <summary>
+            Save the current configuration to a json file
+            </summary>
+            <param name="filePath"></param>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.CompareObjects">
             <summary>
@@ -284,16 +218,6 @@
         <member name="M:KellermanSoftware.CompareNetObjects.CompareObjects.#ctor(System.Boolean)">
             <summary>
             Obsolete Use CompareLogic instead
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.CompareObjects.Compare(System.Object,System.Object)">
-            <summary>
-            Obsolete Use CompareLogic.Compare instead
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.CompareObjects.ClearCache">
-            <summary>
-            Obsolete Use CompareLogic.ClearCache instead
             </summary>
         </member>
         <member name="P:KellermanSoftware.CompareNetObjects.CompareObjects.ElapsedMilliseconds">
@@ -426,67 +350,69 @@
             Obsolete Use CompareLogic.Config.CollectionMatchingSpec instead
             </summary>
         </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.ComparisonResult">
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareObjects.Compare(System.Object,System.Object)">
+            <summary>
+            Obsolete Use CompareLogic.Compare instead
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.CompareObjects.ClearCache">
+            <summary>
+            Obsolete Use CompareLogic.ClearCache instead
+            </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.CompareParms">
+            <summary>
+            Compare Parameters
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Config">
+            <summary>
+            The configuration settings
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Object1Type">
+            <summary>
+            The type of the first object
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Object2Type">
+            <summary>
+            The type of the second object
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Result">
             <summary>
             Details about the comparison
             </summary>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonResult.#ctor(KellermanSoftware.CompareNetObjects.ComparisonConfig)">
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.ParentObject1">
             <summary>
-            Set the configuration for the comparison
-            </summary>
-            <param name="config"></param>
-        </member>
-        <member name="F:KellermanSoftware.CompareNetObjects.ComparisonResult.Parents">
-            <summary>
-            Keep track of parent objects in the object hiearchy
+            A reference to the parent object1
             </summary>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonResult.AddParent(System.Int32)">
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.ParentObject2">
             <summary>
-            Add parent, handle references count
-            </summary>
-            <param name="hash"></param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonResult.RemoveParent(System.Int32)">
-            <summary>
-            Remove parent, handle references count
-            </summary>
-            <param name="hash"></param>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.CurrentStructDepth">
-            <summary>
-            Keep track of the depth of structs being compared.  Used with ComparisonConfig.MaxStructDepth
+            A reference to the parent object2
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.Config">
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Object1">
             <summary>
-            Configuration
+            The first object to be compared
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.ElapsedMilliseconds">
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.Object2">
             <summary>
-            The amount of time in milliseconds it took for the comparison
+            The second object to be compared
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.Differences">
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.BreadCrumb">
             <summary>
-            The differences found during the compare
+            The breadcrumb in the tree
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.DifferencesString">
+        <member name="P:KellermanSoftware.CompareNetObjects.CompareParms.CustomPropertyComparer">
             <summary>
-            The differences found in a string suitable for a textbox
-            </summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.AreEqual">
-            <summary>
-            Returns true if the objects are equal
-            </summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.ExceededDifferences">
-            <summary>
-            Returns true if the number of differences has reached the maximum
+            Custom comparer used to assert <para>Object1</para>
             </summary>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.ComparisonConfig">
@@ -499,9 +425,16 @@
             Default Constructor
             </summary>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonConfig.Reset">
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.UseHashCodeIdentifier">
             <summary>
-            Reset the configuration to the default values
+            By default Compare .NET Objects uses reference equal to identify objects.
+            Versions 4.61 and older used the hash code.  Setting this to true will identify objects by hash code instead of reference equals.
+            The default is false
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.CaseSensitive">
+            <summary>
+            When comparing strings or StringBuilder types, perform a case sensitive comparison.  The default is true.
             </summary>
         </member>
         <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.IgnoreObjectDisposedException">
@@ -514,9 +447,19 @@
             Ignore millisecond differences between DateTime values or DateTimeOffset values.  The default is 0 (any time difference will be shown).
             </summary>
         </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.CompareDateTimeOffsetWithOffsets">
+            <summary>
+            When comparing DateTimeOffsets, offsets will be compared as well as the UtcDateTimes. The default is false.
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.IgnoreDateTimeOffsetTimezones">
+            <summary>
+            When comparing DateTimeOffsets, timezone difference will be ignored by changing both object to their UTC equivalent value. The default is false.
+            </summary>
+        </member>
         <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.MaxStructDepth">
             <summary>
-            When comparing struct, the depth to compare for children.  The default is 2
+            When comparing struct, the depth to compare for children.  The default is 2, the max is 5
             </summary>
         </member>
         <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.IgnoreUnknownObjectTypes">
@@ -549,12 +492,44 @@
             <summary>
             Only these class types will be compared. The default is to compare all class types.
             </summary>
+            <remarks>If you specify a class type here no other class types will be compared unless it is in this list.</remarks>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.TypesToIgnore">
+            <summary>
+            A list of types to be ignored in the comparison. The default is to compare all types.  A typical thing to not compare are GUIDs
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.TypesToInclude">
+            <summary>
+            Only these types will be compared. The default is to compare all types.
+            </summary>
+            <remarks>If you specify a type here no others will be compared unless it is in this list.  You must specify ALL Types that you want to compare.</remarks>
         </member>
         <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.MembersToIgnore">
             <summary>
             Ignore Data Table Names, Data Table Column Names, properties, or fields by name during the comparison. Case sensitive. The default is to compare all members.
             </summary>
-            <example>MembersToIgnore.Add("CreditCardNumber")</example>
+            <example>MembersToIgnore.Add("CreditCardNumber");
+            MembersToIgnore.Add("Invoice.InvoiceGuid");
+            MembersToIgnore.Add("*Id");
+            </example>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonConfig.IgnoreProperty``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}})">
+            <summary>
+            Ignore property during the comparison.  Property is specific to the generic type.
+            </summary>
+            <param name="ignoredProperty"></param>
+            <typeparam name="TClass"></typeparam>
+            <exception cref="T:System.ArgumentException"></exception>
+            <example>IgnoreProperty&lt;Person&gt;(x => x.Name)</example>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonConfig.CustomPropertyComparer``1(System.Linq.Expressions.Expression{System.Func{``0,System.Object}},KellermanSoftware.CompareNetObjects.TypeComparers.BaseTypeComparer)">
+            <summary>
+            Define a Custom Property Comparer using a lambda expression
+            </summary>
+            <typeparam name="TClass"></typeparam>
+            <param name="customProperty"></param>
+            <param name="validator"></param>
         </member>
         <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.MembersToInclude">
             <summary>
@@ -636,6 +611,12 @@
             </summary>
             <example>AttributesToIgnore.Add(typeof(XmlIgnoreAttribute));</example>
         </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.RequiredAttributesToCompare">
+            <summary>
+            If a property or field don't have at least one of the attributes in this list, it will be ignored
+            </summary>
+            <example>RequiredAttributesToCompare.Add(typeof(XmlIgnoreAttribute));</example>
+        </member>
         <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.IgnoreObjectTypes">
             <summary>
             If true, objects will be compared ignore their type diferences.  The default is false.
@@ -678,9 +659,19 @@
             A list of custom comparers that take priority over the built in comparers
             </summary>
         </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.CustomPropertyComparers">
+            <summary>
+            A list of custom property comparers that take priority over the built in and type comparers 
+            </summary>
+        </member>
         <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.TreatStringEmptyAndNullTheSame">
             <summary>
-            If true, string.empty and null will be treated as equal. The default is false.
+            If true, string.empty and null will be treated as equal for Strings and String Builder. The default is false.
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.IgnoreStringLeadingTrailingWhitespace">
+            <summary>
+            If true, leading and trailing whitespaces will be ignored for Strings and String Builder. The default is false.
             </summary>
         </member>
         <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.DoublePrecision">
@@ -688,28 +679,128 @@
             The precision to compare double values.  The default is 0.
             </summary>
         </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonConfig.DecimalPrecision">
+            <summary>
+            The precision to compare decimal values.  The default is 0.
+            </summary>
+        </member>
+        <member name="F:KellermanSoftware.CompareNetObjects.ComparisonConfig._hasWildcardInMembersToIgnore">
+            <summary>
+            Backing member that supports <see cref="M:KellermanSoftware.CompareNetObjects.ComparisonConfig.HasWildcardMembersToExclude"/>
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonConfig.HasWildcardMembersToExclude">
+            <summary>
+            Computed value of whether or not exclusion list has wildcards.
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonConfig.Reset">
+            <summary>
+            Reset the configuration to the default values
+            </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.ComparisonResult">
+            <summary>
+            Details about the comparison
+            </summary>
+        </member>
+        <member name="F:KellermanSoftware.CompareNetObjects.ComparisonResult._referenceParents">
+            <summary>
+            Keep track of parent objects in the object hierarchy by using reference equals
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonResult.#ctor(KellermanSoftware.CompareNetObjects.ComparisonConfig)">
+            <summary>
+            Set the configuration for the comparison
+            </summary>
+            <param name="config"></param>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.CurrentStructDepth">
+            <summary>
+            Keep track of the depth of structs being compared.  Used with ComparisonConfig.MaxStructDepth
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.Config">
+            <summary>
+            Configuration
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.Watch">
+            <summary>
+            Used to time how long the comparison took
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.ElapsedMilliseconds">
+            <summary>
+            The amount of time in milliseconds it took for the comparison
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.Differences">
+            <summary>
+            The differences found during the compare
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.DifferencesString">
+            <summary>
+            The differences found in a string suitable for a textbox
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.AreEqual">
+            <summary>
+            Returns true if the objects are equal
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ComparisonResult.ExceededDifferences">
+            <summary>
+            Returns true if the number of differences has reached the maximum
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonResult.AddParent(System.Object)">
+            <summary>
+            Add parent, handle references count
+            </summary>
+            <param name="objectReference"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonResult.RemoveParent(System.Object)">
+            <summary>
+            Remove parent, handle references count
+            </summary>
+            <param name="objectReference"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ComparisonResult.IsParent(System.Object)">
+            <summary>
+            Returns true if we have encountered this parent before
+            </summary>
+            <param name="objectReference"></param>
+            <returns></returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.CustomValidationLogic">
+            <summary>
+            Get custom validator based on property
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.CustomValidationLogic.CustomValidatorForDynamicMember(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.String,System.Type)">
+            <summary>
+            Get validator for a member of an expando object
+            </summary>
+            <param name="config"></param>
+            <param name="name"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.CustomValidationLogic.CustomValidatorForMember(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Reflection.MemberInfo,System.Type)">
+            <summary>
+            Get validator for a member
+            </summary>
+            <param name="config"></param>
+            <param name="info"></param>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
         <member name="T:KellermanSoftware.CompareNetObjects.Difference">
             <summary>
             Detailed information about the difference
             </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Difference.GetShortItem">
-            <summary>
-            Item and property name only
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Difference.GetWhatIsCompared">
-            <summary>
-            The type and index of what is compared
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Difference.ToString">
-            <summary>
-            Nicely formatted string
-            </summary>
-            <returns></returns>
         </member>
         <member name="P:KellermanSoftware.CompareNetObjects.Difference.ExpectedName">
             <summary>
@@ -781,10 +872,611 @@
             Prefix to put on the beginning of the message
             </summary>
         </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Difference.GetShortItem">
+            <summary>
+            Item and property name only
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Difference.GetWhatIsCompared">
+            <summary>
+            The type and index of what is compared
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Difference.ToString">
+            <summary>
+            Nicely formatted string
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.EnvironmentHelper">
+            <summary>
+            Environment helper class
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.EnvironmentHelper.IsWindows">
+            <summary>
+            Returns true if we are running in Windows
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.ExcludeLogic">
+            <summary>
+            Exclude types depending upon the configuration
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.ShouldExcludeDynamicMember(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.String,System.Type)">
+            <summary>
+            Exclude a member of an expando object
+            </summary>
+            <param name="config"></param>
+            <param name="name"></param>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.ShouldExcludeMember(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Reflection.MemberInfo,System.Type)">
+            <summary>
+            Returns true if the property or field should be excluded
+            </summary>
+            <param name="config"></param>
+            <param name="info"></param>
+            <param name="objectType"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.ExcludedByWildcard(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.String)">
+            <summary>
+            Returns true if the property or field should be exluded by wilcard
+            </summary>
+            <param name="config"></param>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.ShouldExcludeClass(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Type,System.Type)">
+            <summary>
+            Check if the class should be exluded by Attribute
+            </summary>
+            <param name="config"></param>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.ShouldExcludeType(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Type,System.Type)">
+            <summary>
+            Check if the class type should be excluded based on the configuration
+            </summary>
+            <param name="config"></param>
+            <param name="t1"></param>
+            <param name="t2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.IgnoredByAttribute(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Reflection.MemberInfo)">
+            <summary>
+            Check if any type has attributes that should be bypassed
+            </summary>
+            <returns></returns>	
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.IgnoredByLackOfAttribute(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Reflection.MemberInfo)">
+            <summary>
+            Check if any type lacks attributes that should be required
+            </summary>
+            <returns></returns>	
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.FileHelper">
+            <summary>
+            Helper methods for files and directories
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.FileHelper.GetCurrentDirectory">
+            <summary>
+            Get the current directory of the executing assembly
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.FileHelper.PathSlash(System.String)">
+            <summary>
+            Ensure the passed string ends with a directory separator character unless the string is blank.
+            </summary>
+            <param name="path">The string to append the backslash to.</param>
+            <returns>String with a "/" on the end</returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.HtmlConfig">
+            <summary>
+            Config object for HtmlReport
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.HtmlConfig.BreadCrumbColumName">
+            <summary>
+            The header value of the Bread Crumb column
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.HtmlConfig.ExpectedColumnName">
+            <summary>
+            The header value of the Expected column
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.HtmlConfig.ActualColumnName">
+            <summary>
+            The header value of the Actual column
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.HtmlConfig.GenerateFullHtml">
+            <summary>
+            If true, the output will be complete html, if false, it will just be the table
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.HtmlConfig.HtmlHeader">
+            <summary>
+            Setting this will overwrite the default html header (html, head, body tags)
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.HtmlConfig.HtmlFooter">
+            <summary>
+            Setting this will overwrite the default html footer (closing body, html tags)
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.HtmlConfig.HtmlTitle">
+            <summary>
+            The title of the page - only visible if GenerateFullHtml == true
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.HtmlConfig.Style">
+            <summary>
+            The CSS Style of the page - only used if the GenerateFullHtml == true
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.HtmlConfig.#ctor">
+            <summary>
+            Default constructor, sets default values
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.HtmlConfig.IncludeCustomCSS(System.String)">
+            <summary>
+            Appends to the existing Style value
+            </summary>
+            <param name="css">Any css to append</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.HtmlConfig.ReplaceCSS(System.String)">
+            <summary>
+            Replaces the existing Style value
+            </summary>
+            <param name="css">Any css to use</param>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.ICompareLogic">
+            <summary>
+            Interface for mocking
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.ICompareLogic.Config">
+            <summary>
+            The default configuration
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ICompareLogic.Compare(System.Object,System.Object)">
+            <summary>
+            Compare two objects of the same type to each other.
+            </summary>
+            <remarks>
+            Check the Differences or DifferencesString Properties for the differences.
+            Default MaxDifferences is 1 for performance
+            </remarks>
+            <param name="expectedObject">The expected object value to compare</param>
+            <param name="actualObject">The actual object value to compare</param>
+            <returns>True if they are equal</returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ICompareLogic.ClearCache">
+            <summary>
+            Reflection properties and fields are cached. By default this cache is cleared automatically after each compare.
+            </summary>
+        </member>
         <member name="T:KellermanSoftware.CompareNetObjects.IgnoreOrderTypes.IgnoreOrderLogic">
             <summary>
             Logic for comparing lists that are out of order based on a key
             </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.IgnoreOrderTypes.IgnoreOrderLogic.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+            <summary>
+            Initializes a new instance of the <see cref="T:KellermanSoftware.CompareNetObjects.IgnoreOrderTypes.IgnoreOrderLogic"/> class.
+            </summary>
+            <param name="rootComparer">The root comparer.</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.IgnoreOrderTypes.IgnoreOrderLogic.CompareEnumeratorIgnoreOrder(KellermanSoftware.CompareNetObjects.CompareParms,System.Boolean)">
+            <summary>
+            Compares the enumerators and ignores the order
+            </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.LogicEqualityComparer">
+            <summary>Implements methods to support the comparison of objects for equality, in a customizable fashion.</summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1">
+            <summary>Implements methods to support the comparison of objects for equality, in a customizable fashion.</summary>
+            <typeparam name="T">The comparison object type.</typeparam>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1.CompareLogic">
+            <summary>Defines the configuration and logic by which Equals comparisons will be performed.</summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1.UseObjectHashes">
+            <summary>Gets or sets a value indicating whether the base object hashes should be used.</summary>
+            <remarks>
+            False by default to allow CompareLogic to evaluate equivalence of otherwise instance-sensitive hashing objects.
+            NOTE: Any object which doesn't override GetHashCode will behave this way, so this property should generally be left false.
+            </remarks>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1.Equals(`0,`0)">
+            <summary>Compare two objects of the same type to each other.</summary>
+            <returns>True if the objects are considered equivalent, according to the current CompareLogic.</returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.LogicEqualityComparer`1.GetHashCode(`0)">
+            <summary>Retrieves the hash of the specified object.</summary>
+            <param name="obj">The object to retrieve a hash for.</param>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.ProcessHelper">
+            <summary>
+            Helper methods for processes
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.ProcessHelper.Shell(System.String,System.String,System.Diagnostics.ProcessWindowStyle,System.Boolean)">
+            <summary>
+            Execute an external program.
+            </summary>
+            <param name="executablePath">Path and filename of the executable.</param>
+            <param name="arguments">Arguments to pass to the executable.</param>
+            <param name="windowStyle">Window style for the process (hidden, minimized, maximized, etc).</param>
+            <param name="waitUntilFinished">Wait for the process to finish.</param>
+            <returns>Exit Code</returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.PropertyEntity">
+            <summary>
+            Generic class for holding a Property Info, or Dynamic Info
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.PropertyEntity.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.IsDynamic">
+            <summary>
+            If true, this is a dynamic property
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.Name">
+            <summary>
+            Name of the property
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.Value">
+            <summary>
+            Value of the property
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.ReflectedType">
+            <summary>
+            Let me reflect on this day
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.DeclaringType">
+            <summary>
+            The type of the parent
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.PropertyType">
+            <summary>
+            The type of the property
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.CanRead">
+            <summary>
+            If the property can be read from
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.CanWrite">
+            <summary>
+            If the property can be written to
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.Indexers">
+            <summary>
+            Indexers for the property
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.PropertyEntity.PropertyInfo">
+            <summary>
+            Reference to the property info
+            </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.Reports.BaseDualFileReport">
+            <summary>
+            Abstract Base Duel File Report that has default Output
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.BaseDualFileReport.OutputFiles(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String,System.String)">
+            <summary>
+            Create two difference files and compare in WinMerge
+            </summary>
+            <param name="differences">A list of the differences</param>
+            <param name="expectedFilePath">The path to write the expected results</param>
+            <param name="actualFilePath">The path to write the actual results</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.BaseDualFileReport.LaunchApplication(System.String,System.String)">
+            <summary>
+            Launch application to compare two files
+            </summary>
+            <param name="expectedFilePath">The path for the expected file results</param>
+            <param name="actualFilePath">The path for the actual file results</param>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.Reports.BeyondCompareReport">
+            <summary>
+            Output files and launch Beyond Compare
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.BeyondCompareReport.LaunchApplication(System.String,System.String)">
+            <summary>
+            Launch Beyond Compare
+            </summary>
+            <param name="expectedFilePath">The path to write the expected results</param>
+            <param name="actualFilePath">The path to write the actual results</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.BeyondCompareReport.FindBeyondCompare">
+            <summary>
+            Find the path of the Beyond Compare executable
+            </summary>
+            <returns>The path or null if not found</returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.Reports.CsvReport">
+            <summary>
+            Create a CSV file of the differences and launch the default CSV handler (usually Excel)
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.OutputFile(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String)">
+            <summary>
+            Output the differences to a file
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="filePath">The file path</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.OutputStream(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.IO.Stream)">
+            <summary>
+            Output the differences to a stream
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="stream">An output stream</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.OutputString(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference})">
+            <summary>
+            Output the differences to a string
+            </summary>
+            <param name="differences">A list of differences</param>
+            <returns>A string</returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.LaunchApplication(System.String)">
+            <summary>
+            Launch the application associated with CSV files
+            </summary>
+            <param name="filePath">The differences file</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.EscapeString(System.Object)">
+            <summary>
+            Escape special characters
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.Reports.HtmlReport">
+            <summary>
+            Create an HTML file of the differences and launch the default HTML handler
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.HtmlReport.#ctor">
+            <summary>
+            Default constructor, sets up Config object
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.Reports.HtmlReport.Config">
+            <summary>
+            HtmlReport Configuration
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.HtmlReport.OutputFile(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String)">
+            <summary>
+            Output the differences to a file
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="filePath">The file path</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.HtmlReport.LaunchApplication(System.String)">
+            <summary>
+            Launch the HTML Report
+            </summary>
+            <param name="filePath">The differences file</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.HtmlReport.OutputStream(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.IO.Stream)">
+            <summary>
+            Output the differences to a stream
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="stream">An output stream</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.HtmlReport.OutputString(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference})">
+            <summary>
+            Output the differences to a string
+            </summary>
+            <param name="differences">A list of differences</param>
+            <returns>A string</returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.HtmlReport.EscapeString(System.Object)">
+            <summary>
+            Escape special characters
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.Reports.IDualFileReport">
+            <summary>
+            Define a dual file report like Beyond Compare, WinMerge etc.
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.IDualFileReport.OutputFiles(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String,System.String)">
+            <summary>
+            Output the differences to two files
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="expectedFilePath">The path to write the expected results</param>
+            <param name="actualFilePath">The path to write the actual results</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.IDualFileReport.LaunchApplication(System.String,System.String)">
+            <summary>
+            Launch the comparison application
+            </summary>
+            <param name="expectedFilePath">The path to write the expected results</param>
+            <param name="actualFilePath">The path to write the actual results</param>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport">
+            <summary>
+            Defines a Single File Report
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport.OutputFile(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String)">
+            <summary>
+            Output the differences to a file
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="filePath">The file path</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport.OutputStream(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.IO.Stream)">
+            <summary>
+            Output the differences to a stream
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="stream">Where to write to</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport.OutputString(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference})">
+            <summary>
+            Output the differences to a string
+            </summary>
+            <param name="differences">A list of differences</param>
+            <returns>A string</returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport.LaunchApplication(System.String)">
+            <summary>
+            Launch the application for showing the file
+            </summary>
+            <param name="filePath">The file path</param>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport">
+            <summary>
+            Report for showing differences to an end user
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport"/> class.
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.ChangedToText">
+            <summary>
+            The text in between the values.  Defaults to: CHANGED TO ->
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.OutputFile(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String)">
+            <summary>
+            Output the differences to a file
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="filePath">The file path</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.OutputStream(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.IO.Stream)">
+            <summary>
+            Output the differences to a stream
+            </summary>
+            <param name="differences">A list of differences</param>
+            <param name="stream">Where to write to</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.OutputString(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference})">
+            <summary>
+            Output the differences to a string
+            </summary>
+            <param name="differences">A list of differences</param>
+            <returns>A string</returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.LaunchApplication(System.String)">
+            <summary>
+            Launch the application for showing the file
+            </summary>
+            <param name="filePath">The file path</param>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.Reports.WinMergeReport">
+            <summary>
+            Output files and launch WinMerge
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.WinMergeReport.LaunchApplication(System.String,System.String)">
+            <summary>
+            Launch the WinMerge
+            </summary>
+            <param name="expectedFilePath">The path to write the expected results</param>
+            <param name="actualFilePath">The path to write the actual results</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.Reports.WinMergeReport.FindWinMerge">
+            <summary>
+            Find the path of the WinMerge executable
+            </summary>
+            <returns>The path or null if not found</returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.RootComparer">
+            <summary>
+            The base comparer which contains all the type comparers
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.RootComparer.TypeComparers">
+            <summary>
+            A list of the type comparers
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.RootComparer.Compare(KellermanSoftware.CompareNetObjects.CompareParms)">
+            <summary>
+            Compare two objects
+            </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.RootComparerFactory">
+            <summary>
+            Factory to create a root comparer
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.RootComparerFactory.GetRootComparer">
+            <summary>
+            Get the current root comparer
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.StringHelper">
+            <summary>
+            Methods for manipulating strings
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.StringHelper.InsertSpaces(System.String)">
+            <summary>
+            Insert spaces into a string 
+            </summary>
+            <example>
+            OrderDetails = Order Details
+            10Net30 = 10 Net 30
+            FTPHost = FTP Host
+            </example> 
+            <param name="input"></param>
+            <returns></returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeBackwardsCompatibilityExtensions">
+            <summary>
+            Extensions for Type to provide backward compatibility between latest and older .net Framework APIs.
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeBackwardsCompatibilityExtensions.GetTypeInfo(System.Type)">
+            <summary>
+            Function to provide compilation compatibility between older code and newer style.
+            </summary>
+            <param name="type">The type.</param>
+            <returns>The type.</returns>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.BaseComparer">
             <summary>
@@ -842,257 +1534,14 @@
             <param name="value"></param>
             <returns></returns>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.IgnoreOrderTypes.IgnoreOrderLogic.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
-            <summary>
-            Initializes a new instance of the <see cref="T:KellermanSoftware.CompareNetObjects.IgnoreOrderTypes.IgnoreOrderLogic"/> class.
-            </summary>
-            <param name="rootComparer">The root comparer.</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.IgnoreOrderTypes.IgnoreOrderLogic.CompareEnumeratorIgnoreOrder(KellermanSoftware.CompareNetObjects.CompareParms,System.Boolean)">
-            <summary>
-            Compares the enumerators and ignores the order
-            </summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.Reports.BaseDualFileReport">
-            <summary>
-            Abstract Base Duel File Report that has default Output
-            </summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.Reports.IDualFileReport">
-            <summary>
-            Define a dual file report like Beyond Compare, WinMerge etc.
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.IDualFileReport.OutputFiles(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String,System.String)">
-            <summary>
-            Output the differences to two files
-            </summary>
-            <param name="differences">A list of differences</param>
-            <param name="expectedFilePath">The path to write the expected results</param>
-            <param name="actualFilePath">The path to write the actual results</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.IDualFileReport.LaunchApplication(System.String,System.String)">
-            <summary>
-            Launch the comparison application
-            </summary>
-            <param name="expectedFilePath">The path to write the expected results</param>
-            <param name="actualFilePath">The path to write the actual results</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.BaseDualFileReport.OutputFiles(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String,System.String)">
-            <summary>
-            Create two difference files and compare in WinMerge
-            </summary>
-            <param name="differences">A list of the differences</param>
-            <param name="expectedFilePath">The path to write the expected results</param>
-            <param name="actualFilePath">The path to write the actual results</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.BaseDualFileReport.LaunchApplication(System.String,System.String)">
-            <summary>
-            Launch application to compare two files
-            </summary>
-            <param name="expectedFilePath">The path for the expected file results</param>
-            <param name="actualFilePath">The path for the actual file results</param>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport">
-            <summary>
-            Report for showing differences to an end user
-            </summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport">
-            <summary>
-            Defines a Single File Report
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport.OutputFile(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String)">
-            <summary>
-            Output the differences to a file
-            </summary>
-            <param name="differences">A list of differences</param>
-            <param name="filePath">The file path</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport.OutputStream(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.IO.Stream)">
-            <summary>
-            Output the differences to a stream
-            </summary>
-            <param name="differences">A list of differences</param>
-            <param name="stream">Where to write to</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport.OutputString(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference})">
-            <summary>
-            Output the differences to a string
-            </summary>
-            <param name="differences">A list of differences</param>
-            <returns>A string</returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.ISingleFileReport.LaunchApplication(System.String)">
-            <summary>
-            Launch the application for showing the file
-            </summary>
-            <param name="filePath">The file path</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.#ctor">
-            <summary>
-            Initializes a new instance of the <see cref="T:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport"/> class.
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.OutputFile(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String)">
-            <summary>
-            Output the differences to a file
-            </summary>
-            <param name="differences">A list of differences</param>
-            <param name="filePath">The file path</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.OutputStream(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.IO.Stream)">
-            <summary>
-            Output the differences to a stream
-            </summary>
-            <param name="differences">A list of differences</param>
-            <param name="stream">Where to write to</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.OutputString(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference})">
-            <summary>
-            Output the differences to a string
-            </summary>
-            <param name="differences">A list of differences</param>
-            <returns>A string</returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.LaunchApplication(System.String)">
-            <summary>
-            Launch the application for showing the file
-            </summary>
-            <param name="filePath">The file path</param>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.Reports.UserFriendlyReport.ChangedToText">
-            <summary>
-            The text in between the values.  Defaults to: CHANGED TO ->
-            </summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.Reports.WinMergeReport">
-            <summary>
-            Output files and launch WinMerge
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.WinMergeReport.LaunchApplication(System.String,System.String)">
-            <summary>
-            Launch the WinMerge
-            </summary>
-            <param name="expectedFilePath">The path to write the expected results</param>
-            <param name="actualFilePath">The path to write the actual results</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.WinMergeReport.FindWinMerge">
-            <summary>
-            Find the path of the WinMerge executable
-            </summary>
-            <returns>The path or null if not found</returns>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.Reports.BeyondCompareReport">
-            <summary>
-            Output files and launch Beyond Compare
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.BeyondCompareReport.LaunchApplication(System.String,System.String)">
-            <summary>
-            Launch the WinMerge
-            </summary>
-            <param name="expectedFilePath">The path to write the expected results</param>
-            <param name="actualFilePath">The path to write the actual results</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.BeyondCompareReport.FindBeyondCompare">
-            <summary>
-            Find the path of the Beyond Compare executable
-            </summary>
-            <returns>The path or null if not found</returns>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.Reports.CsvReport">
-            <summary>
-            Create a CSV file of the differences and launch the default CSV handler (usually Excel)
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.OutputFile(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.String)">
-            <summary>
-            Output the differences to a file
-            </summary>
-            <param name="differences">A list of differences</param>
-            <param name="filePath">The file path</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.OutputStream(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference},System.IO.Stream)">
-            <summary>
-            Output the differences to a stream
-            </summary>
-            <param name="differences">A list of differences</param>
-            <param name="stream">An output stream</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.OutputString(System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.Difference})">
-            <summary>
-            Output the differences to a string
-            </summary>
-            <param name="differences">A list of differences</param>
-            <returns>A string</returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.LaunchApplication(System.String)">
-            <summary>
-            Launch the WinMerge
-            </summary>
-            <param name="filePath">The differences file</param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.Reports.CsvReport.EscapeString(System.Object)">
-            <summary>
-            Escape special characters
-            </summary>
-            <param name="value"></param>
-            <returns></returns>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.RootComparer">
-            <summary>
-            The base comparer which contains all the type comparers
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.RootComparer.Compare(KellermanSoftware.CompareNetObjects.CompareParms)">
-            <summary>
-            Compare two objects
-            </summary>
-        </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.RootComparer.TypeComparers">
-            <summary>
-            A list of the type comparers
-            </summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.RootComparerFactory">
-            <summary>
-            Factory to create a root comparer
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.RootComparerFactory.GetRootComparer">
-            <summary>
-            Get the current root comparer
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.StringHelper">
-            <summary>
-            Methods for manipulating strings
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.StringHelper.InsertSpaces(System.String)">
-            <summary>
-            Insert spaces into a string 
-            </summary>
-            <example>
-            OrderDetails = Order Details
-            10Net30 = 10 Net 30
-            FTPHost = FTP Host
-            </example> 
-            <param name="input"></param>
-            <returns></returns>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.ByteArrayComparer">
-            <summary>
-            Compare two byte arrays
-            </summary>
-        </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.BaseTypeComparer">
             <summary>
             Common functionality for all Type Comparers
+            </summary>
+        </member>
+        <member name="P:KellermanSoftware.CompareNetObjects.TypeComparers.BaseTypeComparer.RootComparer">
+            <summary>
+            A reference to the root comparer as newed up by the RootComparerFactory
             </summary>
         </member>
         <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.BaseTypeComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
@@ -1114,9 +1563,9 @@
             Compare the two objects
             </summary>
         </member>
-        <member name="P:KellermanSoftware.CompareNetObjects.TypeComparers.BaseTypeComparer.RootComparer">
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.ByteArrayComparer">
             <summary>
-            A reference to the root comparer as newed up by the RootComparerFactory
+            Compare two byte arrays
             </summary>
         </member>
         <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ByteArrayComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
@@ -1161,6 +1610,103 @@
             <summary>
             Compare two classes
             </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.CollectionComparer">
+            <summary>
+            Logic to compare two collections of different types.
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CollectionComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+            <summary>
+            The main constructor.
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CollectionComparer.IsTypeMatch(System.Type,System.Type)">
+            <summary>
+            Returns true if both objects are collections.
+            </summary>
+            <param name="type1">The type of the first object</param>
+            <param name="type2">The type of the second object</param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CollectionComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+            <summary>
+            Compare two collections.
+            </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.CustomComparer`2">
+            <summary>
+            Compare two generic objects
+            </summary>
+            <typeparam name="T1">The type of the first object</typeparam>
+            <typeparam name="T2">The type of the second object</typeparam>
+        </member>
+        <member name="F:KellermanSoftware.CompareNetObjects.TypeComparers.CustomComparer`2.Compare">
+            <summary>
+            Method to evaluate the results, return true if two objects are equal
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CustomComparer`2.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+            <summary>
+            Constructor that takes a root comparer
+            </summary>
+            <param name="rootComparer"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CustomComparer`2.#ctor">
+            <summary>
+            Constructor that takes a default root comparer
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CustomComparer`2.#ctor(System.Func{`0,`1,System.Boolean})">
+            <summary>
+            Constructor that takes a the predication with a default root comparer
+            </summary>
+            <param name="compare">A function to determine if two objects are equal</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CustomComparer`2.#ctor(KellermanSoftware.CompareNetObjects.RootComparer,System.Func{`0,`1,System.Boolean})">
+            <summary>
+            Constructor that takes a the predication with a root comparer
+            </summary>
+            <param name="rootComparer">The root comparer</param>
+            <param name="compare">Method to determine if two objects are equal</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CustomComparer`2.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+            <summary>
+            Compare two objects
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.CustomComparer`2.IsTypeMatch(System.Type,System.Type)">
+            <summary>
+            Returns true if both objects match their types
+            </summary>
+            <param name="type1">The type of the first object</param>
+            <param name="type2">The type of the second object</param>
+            <returns></returns>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.DataColumnComparer">
+            <summary>
+            Compare a data column
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DataColumnComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+            <summary>
+            Default constructor
+            </summary>
+            <param name="rootComparer"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DataColumnComparer.IsTypeMatch(System.Type,System.Type)">
+            <summary>
+            Returns true if both types compared are a DataColumn
+            </summary>
+            <param name="type1"></param>
+            <param name="type2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DataColumnComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+            <summary>
+            Compare a Data Column
+            </summary>
+            <param name="parms"></param>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.DataRowComparer">
             <summary>
@@ -1234,6 +1780,31 @@
             Compare two datatables
             </summary>
         </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.DateComparer">
+            <summary>
+            Compare dates with the option to ignore based on milliseconds
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DateComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+            <summary>
+            Constructor that takes a root comparer
+            </summary>
+            <param name="rootComparer"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DateComparer.IsTypeMatch(System.Type,System.Type)">
+            <summary>
+            Returns true if both types are DateTime
+            </summary>
+            <param name="type1"></param>
+            <param name="type2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DateComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+            <summary>
+            Compare two DateTime variables
+            </summary>
+            <param name="parms"></param>
+        </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.DateTimeOffSetComparer">
             <summary>
             Compare DateTimeOffsets with the ability to ignore millisecond differences
@@ -1259,18 +1830,18 @@
             </summary>
             <param name="parms"></param>
         </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.DoubleComparer">
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.DecimalComparer">
             <summary>
-            Compare Double values with the ability to specify the precision
+            Compare Decimal values with the ability to specify the precision
             </summary>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DoubleComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DecimalComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
             <summary>
             Constructor that takes a root comparer
             </summary>
             <param name="rootComparer"></param>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DoubleComparer.IsTypeMatch(System.Type,System.Type)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DecimalComparer.IsTypeMatch(System.Type,System.Type)">
             <summary>
             Returns true if both types are double
             </summary>
@@ -1278,34 +1849,9 @@
             <param name="type2"></param>
             <returns></returns>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DoubleComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DecimalComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
             <summary>
-            Compare two doubles
-            </summary>
-            <param name="parms"></param>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.DateComparer">
-            <summary>
-            Compare dates with the option to ignore based on milliseconds
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DateComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
-            <summary>
-            Constructor that takes a root comparer
-            </summary>
-            <param name="rootComparer"></param>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DateComparer.IsTypeMatch(System.Type,System.Type)">
-            <summary>
-            Returns true if both types are DateTime
-            </summary>
-            <param name="type1"></param>
-            <param name="type2"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DateComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
-            <summary>
-            Compare two DateTime variables
+            Compare two decimals
             </summary>
             <param name="parms"></param>
         </member>
@@ -1332,6 +1878,31 @@
             <summary>
             Compare two dictionaries
             </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.DoubleComparer">
+            <summary>
+            Compare Double values with the ability to specify the precision
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DoubleComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+            <summary>
+            Constructor that takes a root comparer
+            </summary>
+            <param name="rootComparer"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DoubleComparer.IsTypeMatch(System.Type,System.Type)">
+            <summary>
+            Returns true if both types are double
+            </summary>
+            <param name="type1"></param>
+            <param name="type2"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.DoubleComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+            <summary>
+            Compare two doubles
+            </summary>
+            <param name="parms"></param>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.EnumComparer">
             <summary>
@@ -1380,34 +1951,6 @@
             <summary>
             Compare two objects that implement LINQ Enumerator
             </summary>
-        </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.ExcludeLogic">
-            <summary>
-            Exclude types depending upon the configuration
-            </summary>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.ShouldExcludeMember(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Reflection.MemberInfo)">
-            <summary>
-            Returns true if the property or field should be excluded
-            </summary>
-            <param name="config"></param>
-            <param name="info"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.ShouldExcludeClassType(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Type,System.Type)">
-            <summary>
-            Check if the class type should be excluded based on the configuration
-            </summary>
-            <param name="config"></param>
-            <param name="t1"></param>
-            <param name="t2"></param>
-            <returns></returns>
-        </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.ExcludeLogic.IgnoredByAttribute(KellermanSoftware.CompareNetObjects.ComparisonConfig,System.Reflection.MemberInfo)">
-            <summary>
-            Check if any type has attributes that should be bypassed
-            </summary>
-            <returns></returns>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.FieldComparer">
             <summary>
@@ -1474,28 +2017,28 @@
             Compare two hash sets
             </summary>
         </member>
-        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.ListComparer">
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.ImmutableArrayComparer">
             <summary>
-            Compare objects that implement IList
+            Compares System.Collections.Immutable.ImmutableArray
             </summary>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ListComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ImmutableArrayComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
             <summary>
             Constructor that takes a root comparer
             </summary>
             <param name="rootComparer"></param>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ListComparer.IsTypeMatch(System.Type,System.Type)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ImmutableArrayComparer.IsTypeMatch(System.Type,System.Type)">
             <summary>
-            Returns true if both objects implement IList
+            Returns true if both are immutable arrays with same generic argument type
             </summary>
             <param name="type1">The type of the first object</param>
             <param name="type2">The type of the second object</param>
             <returns></returns>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ListComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ImmutableArrayComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
             <summary>
-            Compare two objects that implement IList
+            Compares two immutable arrays
             </summary>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.IndexerComparer">
@@ -1509,7 +2052,7 @@
             </summary>
             <param name="rootComparer"></param>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.IndexerComparer.CompareIndexer(KellermanSoftware.CompareNetObjects.CompareParms,System.Reflection.PropertyInfo)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.IndexerComparer.CompareIndexer(KellermanSoftware.CompareNetObjects.CompareParms,KellermanSoftware.CompareNetObjects.PropertyEntity,KellermanSoftware.CompareNetObjects.PropertyEntity)">
             <summary>
             Compare an integer indexer
             </summary>
@@ -1536,6 +2079,30 @@
         <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.IpEndPointComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
             <summary>
             Compare two IP End Points
+            </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.ListComparer">
+            <summary>
+            Compare objects that implement IList
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ListComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+            <summary>
+            Constructor that takes a root comparer
+            </summary>
+            <param name="rootComparer"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ListComparer.IsTypeMatch(System.Type,System.Type)">
+            <summary>
+            Returns true if both objects implement IList
+            </summary>
+            <param name="type1">The type of the first object</param>
+            <param name="type2">The type of the second object</param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.ListComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+            <summary>
+            Compare two objects that implement IList
             </summary>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.PointerComparer">
@@ -1573,17 +2140,18 @@
             </summary>
             <param name="rootComparer"></param>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.PropertyComparer.PerformCompareProperties(KellermanSoftware.CompareNetObjects.CompareParms)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.PropertyComparer.PerformCompareProperties(KellermanSoftware.CompareNetObjects.CompareParms,System.Boolean)">
             <summary>
             Compare the properties of a class
             </summary>
         </member>
-        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.PropertyComparer.CompareProperty(KellermanSoftware.CompareNetObjects.CompareParms,System.Reflection.PropertyInfo)">
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.PropertyComparer.CompareProperty(KellermanSoftware.CompareNetObjects.CompareParms,KellermanSoftware.CompareNetObjects.PropertyEntity,System.Collections.Generic.List{KellermanSoftware.CompareNetObjects.PropertyEntity})">
             <summary>
             Compare a single property of a class
             </summary>
             <param name="parms"></param>
             <param name="info"></param>
+            <param name="object2Properties"></param>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.RuntimeTypeComparer">
             <summary>
@@ -1632,6 +2200,31 @@
             <summary>
             Compare two simple types
             </summary>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.StringBuilderComparer">
+            <summary>
+            Compare two StringBuilders
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.StringBuilderComparer.#ctor(KellermanSoftware.CompareNetObjects.RootComparer)">
+            <summary>
+            Constructor that takes a root comparer
+            </summary>
+            <param name="rootComparer"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.StringBuilderComparer.IsTypeMatch(System.Type,System.Type)">
+            <summary>
+            Returns true if both objects are a StringBuilder
+            </summary>
+            <param name="type1">The type of the first object</param>
+            <param name="type2">The type of the second object</param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeComparers.StringBuilderComparer.CompareType(KellermanSoftware.CompareNetObjects.CompareParms)">
+            <summary>
+            Compare two string builders
+            </summary>
+            <param name="parms"></param>
         </member>
         <member name="T:KellermanSoftware.CompareNetObjects.TypeComparers.StringComparer">
             <summary>
@@ -1734,12 +2327,23 @@
             Methods for detecting 
             </summary>
         </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsDynamicObject(System.Type)">
+            <summary>
+            Returns true if it is a dynamic object
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsExpandoObject(System.Object)">
+            <summary>
+            Determines whether the specified object is an expando object
+            </summary>
+            <param name="objectValue">The object value.</param>
+        </member>
         <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsByteArray(System.Type)">
             <summary>
             Returns true if it is a byte array
             </summary>
-            <param name="type"></param>
-            <returns></returns>
         </member>
         <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.CanHaveChildren(System.Type)">
             <summary>
@@ -1751,6 +2355,13 @@
         <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsArray(System.Type)">
             <summary>
             True if the type is an array
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsImmutableArray(System.Type)">
+            <summary>
+            True if the type is an System.Collections.Immutable.ImmutableArray
             </summary>
             <param name="type"></param>
             <returns></returns>
@@ -1839,6 +2450,20 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsDecimal(System.Type)">
+            <summary>
+            Return true if the type is a Decimal
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsDecimal(System.Object)">
+            <summary>
+            Return true if the type is a Decimal or Nullable Decimal
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
         <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsDateTime(System.Type)">
             <summary>
             Return true if the type is a DateTime
@@ -1851,6 +2476,13 @@
             Return true if the type is a DateTimeOffset
             </summary>
             <param name="type"></param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsStringBuilder(System.Type)">
+            <summary>
+            Return true if the type is a StringBuilder
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
         </member>
         <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsString(System.Type)">
             <summary>
@@ -1901,11 +2533,49 @@
             <param name="type"></param>
             <returns></returns>
         </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsDataColumn(System.Type)">
+            <summary>
+            Returns true if the Type is Data Column
+            </summary>
+            <param name="type"></param>
+            <returns></returns>
+        </member>
         <member name="M:KellermanSoftware.CompareNetObjects.TypeHelper.IsFont(System.Type)">
             <summary>
             Returns true if the type is a font
             </summary>
             <param name="type">The type1.</param>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.VerifyConfig">
+            <summary>
+            Used internally to verify the config settings before comparing
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.VerifyConfig.Verify(KellermanSoftware.CompareNetObjects.ComparisonConfig)">
+            <summary>
+            Verifies the specified configuration.
+            </summary>
+            <param name="config">The configuration.</param>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.VerifyConfig.VerifySpec(KellermanSoftware.CompareNetObjects.ComparisonConfig)">
+            <summary>
+            Verifies the collection matching spec.
+            </summary>
+            <param name="config">The configuration.</param>
+            <exception cref="T:System.Exception">
+            </exception>
+        </member>
+        <member name="T:KellermanSoftware.CompareNetObjects.WebHelper">
+            <summary>
+            Helper class for web related methods
+            </summary>
+        </member>
+        <member name="M:KellermanSoftware.CompareNetObjects.WebHelper.HtmlEncode(System.String)">
+            <summary>
+            HTML-encodes a string and returns the encoded string.
+            </summary>
+            <param name="text">The text string to encode. </param>
+            <returns>The HTML-encoded text.</returns>
         </member>
     </members>
 </doc>
