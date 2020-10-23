@@ -35,7 +35,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\debug\</OutputPath>
+    <OutputPath>..\bin\OPCLib\debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -45,7 +45,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\release\</OutputPath>
+    <OutputPath>..\bin\OPCLib\release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -60,10 +60,10 @@
       <HintPath>..\dll\CoreLib.dll</HintPath>
     </Reference>
     <Reference Include="CoreLibWPF">
-      <HintPath>..\dll\CoreLibWPF.dll</HintPath>
+      <HintPath>..\dll\VlixLib\CoreLibWPF.dll</HintPath>
     </Reference>
     <Reference Include="OPCBrowserLib">
-      <HintPath>..\dll\OPCBrowserLib.dll</HintPath>
+      <HintPath>..\dll\VlixLib\OPCBrowserLib.dll</HintPath>
     </Reference>
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />

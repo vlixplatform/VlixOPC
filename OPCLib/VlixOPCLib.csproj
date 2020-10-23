@@ -18,7 +18,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\bin\debug\</OutputPath>
+    <OutputPath>..\bin\OPCLib\debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -27,7 +27,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\bin\release\</OutputPath>
+    <OutputPath>..\bin\OPCLib\release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -43,7 +43,7 @@
   <ItemGroup>
     <Reference Include="CoreLib, Version=1.0.0.1, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\dll\CoreLib.dll</HintPath>
+      <HintPath>..\dll\VlixLib\CoreLib.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -98,6 +98,7 @@
     <ProjectReference Include="..\OPCFoundation UA\Controls\_UA Client Controls.csproj">
       <Project>{a247d2ee-14fc-463d-a9ba-6cff1ef22b7a}</Project>
       <Name>_UA Client Controls</Name>
+      <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\OPCFoundation UA\Core\_UA Core Library.csproj">
       <Project>{7543afcb-f5af-44af-83c9-23164474c1e9}</Project>
@@ -106,7 +107,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>xcopy /E /Y "$(TargetDir)" "$(ProjectDir)..\..\SuiteCore\dll\VlixOPC\"</PostBuildEvent>
   </PropertyGroup>
 </Project>
