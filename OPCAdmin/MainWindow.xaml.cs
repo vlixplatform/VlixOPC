@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -127,12 +128,12 @@ namespace VlixOPC
             cmSettings.ShowMessageProcess();
             ((SettingsVM)tiSettings.DataContext).Password_ForAPIBasicAuthentication = pbHTTPSAuthentication.Password;
             OPCBackEndConfig oPCBackEndConfig = ((SettingsVM)tiSettings.DataContext).ToOPCBackEndConfig();
-            ThreadPool.QueueUserWorkItem(delegate
+            ThreadPool.QueueUserWorkItem(async delegate
             {
                 if (WCFChannel != null && WCFChannel.TrySaveSettings(oPCBackEndConfig))
                 {
-                    Thread.Sleep(1000);
-                    this.Dispatcher.BeginInvoke(new Action(() => 
+                    await Task.Delay(1000);
+                    await this.Dispatcher.BeginInvoke(new Action(() => 
                     {
                         SettingsVM settingsVM = new SettingsVM(oPCBackEndConfig);
                         tiSettings.DataContext = settingsVM;
