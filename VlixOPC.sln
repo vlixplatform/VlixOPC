@@ -17,23 +17,28 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OPCFoundation Classic", "OP
 		OPCFoundation Classic\LICENSE = OPCFoundation Classic\LICENSE
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPC NET COM Wrapper", "OPCFoundation Classic\COM Wrapper\OPC NET COM Wrapper.csproj", "{170A5455-A090-4F26-810F-15F71BBF87E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-OPC NET COM Wrapper", "OPCFoundation Classic\COM Wrapper\3-OPC NET COM Wrapper.csproj", "{170A5455-A090-4F26-810F-15F71BBF87E6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPC NET API", "OPCFoundation Classic\Core\OPC NET API.csproj", "{98B6E5A1-6FED-434E-B568-9C68D5F9959C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2-OPC NET API", "OPCFoundation Classic\Core\2-OPC NET API.csproj", "{98B6E5A1-6FED-434E-B568-9C68D5F9959C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPC COM RCW", "OPCFoundation Classic\NetRcw\OPC COM RCW.csproj", "{75A956D6-285B-46C9-B713-1500582F8C62}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1-OPC COM RCW", "OPCFoundation Classic\NetRcw\1-OPC COM RCW.csproj", "{75A956D6-285B-46C9-B713-1500582F8C62}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OPC NET XML Wrapper", "OPCFoundation Classic\XML Wrapper\OPC NET XML Wrapper.csproj", "{82283125-79FD-4A52-948A-A928CC51C07B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "4-OPC NET XML Wrapper", "OPCFoundation Classic\XML Wrapper\4-OPC NET XML Wrapper.csproj", "{82283125-79FD-4A52-948A-A928CC51C07B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_UA Configuration Library", "OPCFoundation UA\Configuration\_UA Configuration Library.csproj", "{8AB4CB8E-E216-425D-B600-350D0B6B59CD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "_UA Client Library", "OPCFoundation UA\Client\_UA Client Library.csproj", "{42E9198C-ED2C-4BC8-B0A1-55D91D8F1E90}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VlixOPCLib", "OPCLib\VlixOPCLib.csproj", "{300F7A58-72B8-44AB-A7A1-EB79DD999AD8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "1-VlixOPCLib", "OPCLib\1-VlixOPCLib.csproj", "{300F7A58-72B8-44AB-A7A1-EB79DD999AD8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VlixOPCAdmin", "OPCAdmin\VlixOPCAdmin.csproj", "{EEB4CC51-6983-4B80-93D7-375BC4ABC05E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3-VlixOPCAdmin", "OPCAdmin\3-VlixOPCAdmin.csproj", "{EEB4CC51-6983-4B80-93D7-375BC4ABC05E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VlixOPC", "OPC\VlixOPC.csproj", "{6C1C578C-3DC1-4DB2-AF38-F399D0E2F841}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "2-VlixOPC", "OPC\2-VlixOPC.csproj", "{6C1C578C-3DC1-4DB2-AF38-F399D0E2F841}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{65552B1A-BA3B-4623-947E-A1E3BDE9B8FE}"
+	ProjectSection(SolutionItems) = preProject
+		NOTES.txt = NOTES.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

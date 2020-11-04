@@ -108,14 +108,14 @@ namespace VlixOPC
             foreach (var OPCServer in _OPCUAServers) try { OPCServer.Session?.Close(); } catch { }
         }
 
-        public BrowseMachine_Result BrowseLocalDiscoveryServer_UA(string MachineIPAddress)
-        {
-            return BrowseLocalDiscoveryServer_UA(MachineIPAddress, 4840);
-        }
+        //public BrowseMachine_Result BrowseLocalDiscoveryServer_UA(string MachineIPAddress)
+        //{
+        //    return BrowseLocalDiscoveryServer_UA(MachineIPAddress, 4840);
+        //}
 
 
-        public BrowseMachine_Result BrowseLocalDiscoveryServer_UA(string Host, int Port)
-        {
+        public BrowseMachine_Result BrowseLocalDiscoveryServer_UA(string OPCURL)
+        {          
             List<string> serverUrls = new List<string>();
 
             List<OPCServerNode> OPCServers = new List<OPCServerNode>();
@@ -123,7 +123,7 @@ namespace VlixOPC
             {
                 EndpointConfiguration endpointConfiguration = EndpointConfiguration.Create(_Config);
                 endpointConfiguration.OperationTimeout = 25000;
-                using (DiscoveryClient client = DiscoveryClient.Create(new Uri("opc.tcp://" + Host + ":" + Port), endpointConfiguration))
+                using (DiscoveryClient client = DiscoveryClient.Create(new Uri(OPCURL), endpointConfiguration))
                 {
                     ApplicationDescriptionCollection servers = client.FindServers(null);
                     for (int ii = 0; ii < servers.Count; ii++)

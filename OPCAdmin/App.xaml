@@ -3,6 +3,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="pack://application:,,,/CoreLibWPF;component/Styles/vlix.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/CoreLib.WPF;component/Styles/vlix.xaml" />
     </Application.Resources>
 </Application>

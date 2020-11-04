@@ -38,13 +38,14 @@ namespace VlixOPC
         WCFClient<iVlixOPCContract> wCFClient;
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            gdVlixOPC.Visibility = Visibility.Collapsed;
             //Connect to Open Plant OPC Service
             ThreadPool.QueueUserWorkItem(delegate
             {
-                string LocalPipeName = Global.GetLocalPipeName();
+                string LocalPipeName = "VlixOPC";
                 this.OPCClassic_Browser.ConnectToBackEndViaLocalHostPipe(LocalPipeName);
                 this.OPCUA_Browser.ConnectToBackEndViaLocalHostPipe(LocalPipeName);
-                (wCFClient = new WCFClient<iVlixOPCContract>(LocalPipeName, "")
+                (wCFClient = new WCFClient<iVlixOPCContract>(LocalPipeName, "",500)
                 {
                     OnWCFConnected = (Channel, OPConnection) =>
                     {

@@ -33,10 +33,14 @@ namespace VlixOPC
         public static OPCUABrowserEngine OPCUABrowserEngine;
         public static List<DateTime> TotalAPICalls = new List<DateTime>();
         public static WCFHost<VlixOPCContract, iVlixOPCContract> WCFHost_Pipe = null;
-        public static WCFHost<OPCBrowserContract, iOPCBrowserContract> WCFHost_Http = null;
-        public static WCFHost<OPCBrowserContract, iOPCBrowserContract> WCFHost_Https = null;
+        public static WCFHostWeb<OPCBrowserContract, iOPCBrowserContract> WCFHost_Http = null;
+        public static WCFHostWeb<OPCBrowserContract, iOPCBrowserContract> WCFHost_Https = null;
 
-        public OPCBackEnd()
+        /// <summary>
+        /// THe main Class for the OPC Back End
+        /// </summary>
+        /// <param name="LocalPipeName">Use for OPC Admin Communication</param>
+        public OPCBackEnd(string LocalPipeName = null)
         {
             Logger.ClearLogs();
             if (!Global.Product.TryLoadConfigFile()) throw new CustomException("FATAL ERROR: Unable to load Config File '" + Global.Product.ConfigFilePath + "'");
@@ -73,7 +77,8 @@ namespace VlixOPC
             //*************************************************
             //   ENABLE NAMED PIPE FOR CONFIGURATION FRONT END
             //*************************************************
-            string LocalPipeName = Global.GetLocalPipeName();
+            if (LocalPipeName.IsNullOrWhiteSpace()) LocalPipeName = "VlixOPC";
+            //string LocalPipeName = GlobalWCF.GetLocalPipeName();
             WCFHost_Pipe = new WCFHost<VlixOPCContract, iVlixOPCContract>(LocalPipeName, "");
             WCFHost_Pipe.Start();
 
@@ -97,7 +102,7 @@ namespace VlixOPC
             lock (Http_EnableOneAtATime)
             {
                 Logger.Log("Enabling Http Host on Port " + OPCBackEnd.Config.Http_Port + "...");
-                WCFHost_Http = new WCFHost<OPCBrowserContract, iOPCBrowserContract>(OPCBackEnd.Config.Http_Port, HostProtocolType.HTTP, OPCBackEnd.Config.RequireAPIBasicAuthentication);
+                WCFHost_Http = new WCFHostWeb<OPCBrowserContract, iOPCBrowserContract>(OPCBackEnd.Config.Http_Port, HostProtocolType.HTTP, OPCBackEnd.Config.RequireAPIBasicAuthentication);
                 if (OPCBackEnd.Config.RequireAPIBasicAuthentication)
                 {
                     Logger.Log("Enabling Username and Password Authentication for Http Host...");
@@ -118,7 +123,7 @@ namespace VlixOPC
             lock (Https_EnableOneAtATime)
             {
                 Logger.Log("Enabling Https (Secure) Host on Port " + OPCBackEnd.Config.Https_Port + "...");
-                WCFHost_Https = new WCFHost<OPCBrowserContract, iOPCBrowserContract>(OPCBackEnd.Config.Https_Port, HostProtocolType.HTTPS, OPCBackEnd.Config.RequireAPIBasicAuthentication);
+                WCFHost_Https = new WCFHostWeb<OPCBrowserContract, iOPCBrowserContract>(OPCBackEnd.Config.Https_Port, HostProtocolType.HTTPS, OPCBackEnd.Config.RequireAPIBasicAuthentication);
                 if (OPCBackEnd.Config.RequireAPIBasicAuthentication)
                 {
                     Logger.Log("Enabling Username and Password Authentication for Https Secure Host...");

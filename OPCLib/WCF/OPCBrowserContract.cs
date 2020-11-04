@@ -114,13 +114,13 @@ namespace VlixOPC
             return OPCBackEnd.OPCUABrowserEngine.ServerStatus_UA(OPCURL,UseSecurity,Username, Password);
         }
 
-        public BrowseMachine_Result BrowseLocalDiscoveryServer_UA(string Host, int Port)
+        public BrowseMachine_Result BrowseLocalDiscoveryServer_UA(string OPCURL)
         {
             OPCBackEnd.TotalAPICalls.Add(DateTime.UtcNow);
             string CallerIP = GetCallerIP();
-            Logger.Log("'" + CallerIP + "' requested to Browse Local Discovery Server for Host '" + Host + "', Port '" + Port + "' (OPC UA)...");
-            var Res = OPCBackEnd.OPCUABrowserEngine.BrowseLocalDiscoveryServer_UA(Host, Port);
-            if (!Res.success) Logger.Log("ERROR: '" + CallerIP + "' reques to Browse Local Discovery Server for Host '" + Host + "', Port '" + Port + "' (OPC UA) returned an error\r\n" + Res.error);
+            Logger.Log("'" + CallerIP + "' requested to Browse Local Discovery Server for '" + OPCURL + "' (OPC UA)...");
+            var Res = OPCBackEnd.OPCUABrowserEngine.BrowseLocalDiscoveryServer_UA(OPCURL);
+            if (!Res.success) Logger.Log("ERROR: '" + CallerIP + "' reques to Browse Local Discovery Server for '" + OPCURL + "' (OPC UA) returned an error\r\n" + Res.error);
             return Res;
         }
 

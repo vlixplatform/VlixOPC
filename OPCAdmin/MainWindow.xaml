@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:VlixOPC="clr-namespace:VlixOPC;assembly=OPCBrowserLib"
-        xmlns:CoreLibWPF="clr-namespace:Vlix;assembly=CoreLibWPF"
+        xmlns:CoreLibWPF="clr-namespace:Vlix;assembly=CoreLib.WPF"
         xmlns:local="clr-namespace:VlixOPC" Title="Vlix OPC" Closed="Window_Closed"
         mc:Ignorable="d" Icon="vlix.ico" Loaded="Window_Loaded"
         Height="450" Width="800">
