@@ -386,20 +386,38 @@ namespace VlixOPC
                             {
                                 AttributeToAssignValue.Value = "";
                             }
-                            else if (results[ii].Value.IsNumericType())
-                            {
-                                AttributeToAssignValue.Value = results[ii].Value as IComparable;
-                                if (AttributeToAssignValue.Value == null) AttributeToAssignValue.Value = Convert.ToDouble(results[ii].Value.ToDouble());
-                            }
                             else
                             {
-                                if (AttId == 14) //if it is DataType Node, find the corresponding name
+                                if (results[ii].Value.IsNumericType())
                                 {
-                                    NodeId NID2 = new NodeId(results[ii].Value.ToString());
-                                    ILocalNode node2 = oPCUAServer.Session.NodeCache.Find(NID2) as ILocalNode;
-                                    AttributeToAssignValue.Value = node2.ToString();
+                                    AttributeToAssignValue.Value = results[ii].Value as IComparable;
+                                    if (AttributeToAssignValue.Value == null) AttributeToAssignValue.Value = Convert.ToDouble(results[ii].Value.ToDouble());
                                 }
-                                else AttributeToAssignValue.Value = results[ii].Value.ToString();
+                                else
+                                {
+                                    if (AttId == 14) //if it is DataType Node, find the corresponding name
+                                    {
+                                        NodeId NID2 = new NodeId(results[ii].Value.ToString());
+                                        ILocalNode node2 = oPCUAServer.Session.NodeCache.Find(NID2) as ILocalNode;
+                                        AttributeToAssignValue.Value = node2.ToString();
+                                    }
+                                    else
+                                    {
+                                        if (results[ii].Value is System.Collections.IEnumerable array)
+                                        {
+                                            string res = "";
+                                            foreach (var item in array)
+                                            {
+                                                res = res + item.ToString() + ",";
+                                            }
+                                            if (res != "") res.RemoveLastCharacter();
+                                            AttributeToAssignValue.Value = res;
+                                        }
+                                        else AttributeToAssignValue.Value = results[ii].Value.GetType().ToString();
+
+                                        //AttributeToAssignValue.Value = results[ii].Value.ToString();
+                                    }
+                                }
                             }
                         }
                     }
@@ -506,6 +524,22 @@ namespace VlixOPC
                             {
                                 NewRegisteredTag.QualityOK = true;
                                 if (readResult.Value is string || readResult.Value.IsNumericType()) NewRegisteredTag.Value = (IComparable)readResult.Value;
+                                else
+                                {
+                                    if (readResult.Value is System.Collections.IEnumerable array)
+                                    {
+                                        string res = "";
+                                        foreach (var item in array)
+                                        {
+                                            res = res + item.ToString() + ",";
+                                        }
+                                        if (res != "") res.RemoveLastCharacter();
+                                        NewRegisteredTag.Value = res;
+                                    }
+                                    else NewRegisteredTag.Value = readResult.Value.GetType().ToString();
+
+                                    //NewRegisteredTag.Value = readResult.Value.GetType().ToString();
+                                }
                             }
                             else
                             {
@@ -549,6 +583,21 @@ namespace VlixOPC
                         {
                             Tag.QualityOK = true;
                             if (Value.Value is string || Value.Value.IsNumericType()) Tag.Value = (IComparable)Value.Value;
+                            else
+                            {
+                                if (Value.Value is System.Collections.IEnumerable array)
+                                {
+                                    string res = "";
+                                    foreach (var item in array)
+                                    {
+                                        res = res + item.ToString() + ",";
+                                    }
+                                    if (res != "") res.RemoveLastCharacter();
+                                    Tag.Value = res;
+                                }
+                                else Tag.Value = Value.Value.GetType().ToString();
+                                //Tag.Value = Value.Value.GetType().ToString();
+                            }
                         }
                         else
                         {

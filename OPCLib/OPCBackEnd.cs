@@ -32,7 +32,8 @@ namespace VlixOPC
         public static OPCClassicBrowserEngine OPCClassicBrowserEngine;
         public static OPCUABrowserEngine OPCUABrowserEngine;
         public static List<DateTime> TotalAPICalls = new List<DateTime>();
-        public static WCFHost<VlixOPCContract, iVlixOPCContract> WCFHost_Pipe = null;
+        public static WCFHost<OPCServiceContract, iOPCServiceContract> WCFHost_Pipe = null;
+        public static WCFHost<OPCServiceContract, iOPCServiceContract> WCFHost_Tcp = null;
         public static WCFHostWeb<OPCBrowserContract, iOPCBrowserContract> WCFHost_Http = null;
         public static WCFHostWeb<OPCBrowserContract, iOPCBrowserContract> WCFHost_Https = null;
 
@@ -69,31 +70,39 @@ namespace VlixOPC
                     int TotalCallsLastMinute = TotalAPICalls.Count(C => C > DTGate);
                     Logger.Log("Total API Calls Last Minute = " + TotalCallsLastMinute);
                     try { TotalAPICalls.RemoveWhere(C => C < DTGate); } catch { }
-                    await Task.Delay(30000);
+                    await Task.Delay(120000);
                 }
             })).Start();
 
 
             //*************************************************
-            //   ENABLE NAMED PIPE FOR CONFIGURATION FRONT END
+            //   ENABLE NAMED PIPE AND NET TCP FOR CONFIGURATION FRONT END
             //*************************************************
             if (LocalPipeName.IsNullOrWhiteSpace()) LocalPipeName = "VlixOPC";
             //string LocalPipeName = GlobalWCF.GetLocalPipeName();
-            WCFHost_Pipe = new WCFHost<VlixOPCContract, iVlixOPCContract>(LocalPipeName, "");
+            WCFHost_Pipe = new WCFHost<OPCServiceContract, iOPCServiceContract>(LocalPipeName, "");
             WCFHost_Pipe.Start();
-
+            WCFHost_Tcp = new WCFHost<OPCServiceContract, iOPCServiceContract>(OPCBackEnd.Config.Tcp_Port, HostProtocolType.NetTCPSecure, OPCBackEnd.Config.Enable_Tcp_Authentication)
+            {
+                OnValidatingUsernamePassword = (string UN, string PW, out UserBase user) =>
+                {
+                    user = null;
+                    return (string.Equals(UN, OPCBackEnd.Config.Tcp_Username, StringComparison.OrdinalIgnoreCase) && PW == OPCBackEnd.Config.Tcp_Password);
+                }
+            };
+            WCFHost_Tcp.Start();
 
 
             //****************************************
             //   ENABLE HTTP
             //****************************************
-            if (OPCBackEnd.Config.EnableAPI_Http) OPCBackEnd.EnableHttp(); else Logger.Log("Http API not Enabled");
+            if (OPCBackEnd.Config.Enable_WebAPI_Http) OPCBackEnd.EnableHttp(); else Logger.Log("Http API not Enabled");
 
 
             //****************************************
             //   ENABLE HTTPS
             //****************************************
-            if (OPCBackEnd.Config.EnableAPI_Https) OPCBackEnd.EnableHttps(); else Logger.Log("Https Secure API not Enabled");
+            if (OPCBackEnd.Config.Enable_WebAPI_Https) OPCBackEnd.EnableHttps(); else Logger.Log("Https Secure API not Enabled");
         }
 
         static object Http_EnableOneAtATime = new object();
@@ -102,15 +111,15 @@ namespace VlixOPC
             lock (Http_EnableOneAtATime)
             {
                 Logger.Log("Enabling Http Host on Port " + OPCBackEnd.Config.Http_Port + "...");
-                WCFHost_Http = new WCFHostWeb<OPCBrowserContract, iOPCBrowserContract>(OPCBackEnd.Config.Http_Port, HostProtocolType.HTTP, OPCBackEnd.Config.RequireAPIBasicAuthentication);
-                if (OPCBackEnd.Config.RequireAPIBasicAuthentication)
+                WCFHost_Http = new WCFHostWeb<OPCBrowserContract, iOPCBrowserContract>(OPCBackEnd.Config.Http_Port, HostProtocolType.HTTP, OPCBackEnd.Config.Enable_WebAPI_BasicAuthentication);
+                if (OPCBackEnd.Config.Enable_WebAPI_BasicAuthentication)
                 {
                     Logger.Log("Enabling Username and Password Authentication for Http Host...");
                     WCFHost_Http.EnableUserAuthentication = true;
                     WCFHost_Http.OnValidatingUsernamePassword = (string UN, string PW, out UserBase User) =>
                     {
                         User = null;
-                        return (UN.ToLower() == OPCBackEnd.Config.Username_ForAPIBasicAuthentication.ToLower() && PW == OPCBackEnd.Config.Password_ForAPIBasicAuthentication);
+                        return (string.Equals(UN, OPCBackEnd.Config.WebAPI_Username,StringComparison.OrdinalIgnoreCase) && PW == OPCBackEnd.Config.WebAPI_Password);
                     };
                 }
                 WCFHost_Http.Start();
@@ -123,15 +132,15 @@ namespace VlixOPC
             lock (Https_EnableOneAtATime)
             {
                 Logger.Log("Enabling Https (Secure) Host on Port " + OPCBackEnd.Config.Https_Port + "...");
-                WCFHost_Https = new WCFHostWeb<OPCBrowserContract, iOPCBrowserContract>(OPCBackEnd.Config.Https_Port, HostProtocolType.HTTPS, OPCBackEnd.Config.RequireAPIBasicAuthentication);
-                if (OPCBackEnd.Config.RequireAPIBasicAuthentication)
+                WCFHost_Https = new WCFHostWeb<OPCBrowserContract, iOPCBrowserContract>(OPCBackEnd.Config.Https_Port, HostProtocolType.HTTPS, OPCBackEnd.Config.Enable_WebAPI_BasicAuthentication);
+                if (OPCBackEnd.Config.Enable_WebAPI_BasicAuthentication)
                 {
                     Logger.Log("Enabling Username and Password Authentication for Https Secure Host...");
                     WCFHost_Https.EnableUserAuthentication = true;
                     WCFHost_Https.OnValidatingUsernamePassword = (string UN, string PW, out UserBase User) =>
                     {
                         User = null;
-                        return (UN.ToLower() == OPCBackEnd.Config.Username_ForAPIBasicAuthentication.ToLower() && PW == OPCBackEnd.Config.Password_ForAPIBasicAuthentication);
+                        return (string.Equals(UN, OPCBackEnd.Config.WebAPI_Username, StringComparison.OrdinalIgnoreCase) && PW == OPCBackEnd.Config.WebAPI_Password);
                     };
                 }
                 WCFHost_Https.Start();

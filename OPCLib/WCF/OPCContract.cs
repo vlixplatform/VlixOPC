@@ -8,7 +8,7 @@ namespace VlixOPC
 {
 
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple)]
-    public class VlixOPCContract : OPCBrowserContract, iVlixOPCContract
+    public class OPCServiceContract : OPCBrowserContract, iOPCServiceContract
     {
         //This is for IKeepAlive
 
@@ -22,48 +22,62 @@ namespace VlixOPC
             return Logger.TryGetLatestLogs(NumberOfLogs, out LogList);
         }
 
-        public bool TryGetSettings(out OPCBackEndConfig OPCBackEndConfig)
+        public Task<ResTryGetSettings> TryGetSettings()
         {
-            OPCBackEndConfig = null;
+            OPCBackEndConfig OPCBackEndConfig = null;
             try
             {
                 OPCBackEndConfig = (OPCBackEndConfig)Global.Product.Config;
-                return true;
+                return Task.FromResult(new ResTryGetSettings(OPCBackEndConfig));
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                return Task.FromResult(new ResTryGetSettings(ex.ToString()));
             }
         }
 
-        public bool TrySaveSettings(OPCBackEndConfig OPCBackEndConfig)
+        public Task<Res> TrySaveSettings(OPCBackEndConfig OPCBackEndConfig)
         {
             try
             {
-                Logger.Log("Saving and applying Vlix OPC New Back End Configuration...");
+                Logger.Log("Saving and applying OPC Service Back End Configuration...");
                 bool ChangeOccured = false;
                 OPCBackEndConfig CurrentOPCBackEndConfig = (OPCBackEndConfig)Global.Product.Config;
 
                 //HTTP Settings
-                if (CurrentOPCBackEndConfig.EnableAPI_Http != OPCBackEndConfig.EnableAPI_Http 
+                if (CurrentOPCBackEndConfig.Enable_WebAPI_Http != OPCBackEndConfig.Enable_WebAPI_Http
                     || CurrentOPCBackEndConfig.Http_Port != OPCBackEndConfig.Http_Port)
                 {
                     ChangeOccured = true;
-                    if (OPCBackEndConfig.EnableAPI_Http) { OPCBackEnd.WCFHost_Http?.Stop(); OPCBackEnd.EnableHttp(); }
+                    if (OPCBackEndConfig.Enable_WebAPI_Http) { OPCBackEnd.WCFHost_Http?.Stop(); OPCBackEnd.EnableHttp(); }
                     else OPCBackEnd.WCFHost_Http?.Stop();
                 }
 
                 //HTTPS Settings
-                if (CurrentOPCBackEndConfig.EnableAPI_Https != OPCBackEndConfig.EnableAPI_Https
+                if (CurrentOPCBackEndConfig.Enable_WebAPI_Https != OPCBackEndConfig.Enable_WebAPI_Https
                     || CurrentOPCBackEndConfig.Https_Port != OPCBackEndConfig.Https_Port
-                    || CurrentOPCBackEndConfig.RequireAPIBasicAuthentication != OPCBackEndConfig.RequireAPIBasicAuthentication
-                    || CurrentOPCBackEndConfig.Username_ForAPIBasicAuthentication != OPCBackEndConfig.Username_ForAPIBasicAuthentication
-                    || CurrentOPCBackEndConfig.Password_ForAPIBasicAuthentication != OPCBackEndConfig.Password_ForAPIBasicAuthentication
+                    || CurrentOPCBackEndConfig.Enable_WebAPI_BasicAuthentication != OPCBackEndConfig.Enable_WebAPI_BasicAuthentication
+                    || CurrentOPCBackEndConfig.WebAPI_Username != OPCBackEndConfig.WebAPI_Username
+                    || CurrentOPCBackEndConfig.WebAPI_Password != OPCBackEndConfig.WebAPI_Password
                     || CurrentOPCBackEndConfig.SubjectAlternativeNames_ForHTTPSCert != OPCBackEndConfig.SubjectAlternativeNames_ForHTTPSCert)
                 {
                     ChangeOccured = true;
-                    if (OPCBackEndConfig.EnableAPI_Https) { OPCBackEnd.WCFHost_Https?.Stop(); OPCBackEnd.EnableHttps(); }
+                    if (OPCBackEndConfig.Enable_WebAPI_Https) { OPCBackEnd.WCFHost_Https?.Stop(); OPCBackEnd.EnableHttps(); }
                     else OPCBackEnd.WCFHost_Https?.Stop();
+                }
+
+                //Tcp Settings
+                if (CurrentOPCBackEndConfig.Enable_Tcp_Authentication != OPCBackEndConfig.Enable_Tcp_Authentication
+                    || CurrentOPCBackEndConfig.Tcp_Port != OPCBackEndConfig.Tcp_Port
+                    || CurrentOPCBackEndConfig.Tcp_Username != OPCBackEndConfig.Tcp_Username
+                    || CurrentOPCBackEndConfig.Tcp_Password != OPCBackEndConfig.Tcp_Password)
+                {
+                    ChangeOccured = true;
+                    OPCBackEnd.WCFHost_Tcp?.Stop(); 
+                    OPCBackEnd.WCFHost_Tcp.ListeningPort = OPCBackEndConfig.Tcp_Port; 
+                    OPCBackEnd.WCFHost_Tcp.EnableUserAuthentication = OPCBackEndConfig.Enable_Tcp_Authentication && !(OPCBackEndConfig.Tcp_Username.IsNullOrEmpty() && OPCBackEndConfig.Tcp_Password.IsNullOrEmpty()); 
+                    
+                    OPCBackEnd.WCFHost_Tcp.Start();
                 }
 
                 //OPC Settings
@@ -82,17 +96,17 @@ namespace VlixOPC
                     OPCBackEnd.Config = OPCBackEndConfig;
                     Global.Product.Config = OPCBackEndConfig;
                     Global.Product.Config.TrySaveConfigFile(out string ExStrC);
-                    Logger.Log("Successfully saved Vlix OPC Back End Configuration at '" + Global.Product.ConfigFilePath + "'");
+                    Logger.Log("Successfully saved OPC Service Back End Configuration at '" + Global.Product.ConfigFilePath + "'");
                 }
                 else
                 {
                     Logger.Log("Save did not execute as there were no changes made!");
                 }
-                return true;
+                return Task.FromResult(new Res());
             }
-            catch
+            catch (Exception ex)
             {
-                return false;
+                return Task.FromResult(new Res(ex.ToString())); ;
             }
             
         }

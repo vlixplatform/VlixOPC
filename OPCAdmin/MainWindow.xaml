@@ -9,14 +9,17 @@
         mc:Ignorable="d" Icon="vlix.ico" Loaded="Window_Loaded"
         Height="450" Width="800">
     <Window.Resources>
-        <ResourceDictionary >
+        <ResourceDictionary>
             <CoreLibWPF:CentreMessageStateNoMessageToOpacity1Else02Converter x:Key="CentreMessageStateNoMessageToOpacity1Else02Converter" />
             <CoreLibWPF:BoolORMultiConverter x:Key="BoolORMultiConverter" />
+            <CoreLibWPF:InvertBoolConverter x:Key="InvertBoolConverter" />
+            <local:BoolORToFalseMultiConverter x:Key="BoolORToFalseMultiConverter" />
         </ResourceDictionary>
     </Window.Resources>
+
     <Grid>
         <CoreLibWPF:OPH2 VerticalAlignment="Center"  HorizontalAlignment="Center">Disconnected from Vlix OPC Service</CoreLibWPF:OPH2>
-        <Grid x:Name="gdVlixOPC">
+        <Grid x:Name="gdOPCService">
             <TabControl SelectionChanged="TabControl_SelectionChanged">
                 <TabItem Header="Activity Logs">
                     <CoreLibWPF:ucLogConsole x:Name="LogConsole"></CoreLibWPF:ucLogConsole>
@@ -26,7 +29,7 @@
                         <local:SettingsVM />
                     </TabItem.DataContext>
                     <Grid>
-                        <Grid Opacity="{Binding ElementName=cmSettings, Path=State, Converter={StaticResource CentreMessageStateNoMessageToOpacity1Else02Converter}}">
+                        <Grid IsEnabled="{Binding SettingsError, Converter={StaticResource InvertBoolConverter}}" Opacity="{Binding ElementName=cmSettings, Path=State, Converter={StaticResource CentreMessageStateNoMessageToOpacity1Else02Converter}}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="*" />
@@ -36,75 +39,111 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <CoreLibWPF:OPBorder Margin="3" Grid.Row="0" Grid.Column="0">
+                            <CoreLibWPF:OPBorder Margin="3" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2">
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <CoreLibWPF:OPH3 HorizontalAlignment="Center" Margin="0,0,0,2" Grid.Row="0" FontWeight="Bold">HTTP API</CoreLibWPF:OPH3>
+                                    <CoreLibWPF:OPH3 HorizontalAlignment="Center" Margin="0,0,0,2" Grid.Row="0" FontWeight="Bold">WEB API Settingss</CoreLibWPF:OPH3>
                                     <StackPanel Grid.Row="1" Height="25" Orientation="Horizontal">
-                                        <TextBlock VerticalAlignment="Center" Margin="0,0,0,0">Port:</TextBlock>
-                                        <TextBox IsEnabled="{Binding EnableAPI_Http}" Text="{Binding Http_Port}" VerticalAlignment="Center" Margin="2,0,0,0" Width="80"></TextBox>
+                                        <TextBlock VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,0,0" Width="60">Http Port:</TextBlock>
+                                        <TextBox x:Name="tbHttpPort" IsEnabled="{Binding EnableAPI_Http}" Text="{Binding Http_Port, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="2,0,0,0" Width="80"></TextBox>
                                         <CheckBox IsChecked="{Binding EnableAPI_Http}" VerticalAlignment="Center" Margin="10,0,0,0">
                                             <TextBlock Margin="0,1,0,0">Enable</TextBlock>
                                         </CheckBox>
                                     </StackPanel>
-                                </StackPanel>
-                            </CoreLibWPF:OPBorder>
-                            <CoreLibWPF:OPBorder Margin="3" Grid.Row="1" Grid.Column="1">
-                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <CoreLibWPF:OPH3 HorizontalAlignment="Center" Margin="0,0,0,2" Grid.Row="0" FontWeight="Bold">BASIC AUTHENTICATION</CoreLibWPF:OPH3>
-                                    <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="0,5,0,0">
-                                        <StackPanel.IsEnabled>
-                                            <MultiBinding Converter="{StaticResource BoolORMultiConverter}">
-                                                <Binding Path="EnableAPI_Http" />
-                                                <Binding Path="EnableAPI_Https" />
-                                            </MultiBinding>
-                                        </StackPanel.IsEnabled>
-                                        <CheckBox IsChecked="{Binding RequireAPIBasicAuthentication}" VerticalAlignment="Center" Margin="0,0,0,10">
-                                            <TextBlock Margin="0,1,0,0">Enable Basic Authentication</TextBlock>
-                                        </CheckBox>
-                                        <StackPanel Orientation="Horizontal" Height="20">
-                                            <TextBlock Width="60" TextAlignment="Right" Margin="0,0,2,0" >Username:</TextBlock>
-                                            <TextBox IsEnabled="{Binding RequireAPIBasicAuthentication}" Width="100" Text="{Binding Username_ForAPIBasicAuthentication}"></TextBox>
-                                        </StackPanel>
-                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Height="20">
-                                            <TextBlock Width="60" TextAlignment="Right" Margin="0,0,2,0" >Password:</TextBlock>
-                                            <PasswordBox IsEnabled="{Binding RequireAPIBasicAuthentication}" x:Name="pbHTTPSAuthentication" Width="100"></PasswordBox>
-                                        </StackPanel>
-                                </StackPanel>
-                                </StackPanel>
-                            </CoreLibWPF:OPBorder>
-                            <CoreLibWPF:OPBorder Margin="3" Grid.Row="0" Grid.Column="1">
-                                <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <CoreLibWPF:OPH3 HorizontalAlignment="Center" Margin="0,0,0,2" Grid.Row="0" FontWeight="Bold">HTTPS SECURE API</CoreLibWPF:OPH3>
-                                    <StackPanel Height="25" HorizontalAlignment="Center" Orientation="Horizontal">
-                                        <TextBlock VerticalAlignment="Center" Margin="0,0,0,0">Port:</TextBlock>
-                                        <TextBox IsEnabled="{Binding EnableAPI_Https}" Text="{Binding Https_Port}" VerticalAlignment="Center" Margin="2,0,0,0" Width="80"></TextBox>
+                                    <StackPanel Height="25" Orientation="Horizontal">
+                                        <TextBlock VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,0,0" Width="60">Https Port:</TextBlock>
+                                        <TextBox x:Name="tbHttpsPort" IsEnabled="{Binding EnableAPI_Https}" Text="{Binding Https_Port, NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="2,0,0,0" Width="80"></TextBox>
                                         <CheckBox IsChecked="{Binding EnableAPI_Https}" VerticalAlignment="Center" Margin="10,0,0,0">
                                             <TextBlock Margin="0,1,0,0">Enable</TextBlock>
                                         </CheckBox>
                                     </StackPanel>
                                     <TextBlock VerticalAlignment="Center" Margin="0,10,0,0">Subject Alternative Names (for SSL Cert)</TextBlock>
                                     <TextBox IsEnabled="{Binding EnableAPI_Https}" Text="{Binding SubjectAlternativeNames_ForHTTPSCert}" VerticalAlignment="Center" Margin="0,2,0,10"></TextBox>
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                        <CoreLibWPF:OPBorder BorderBrush="#bbb">
+                                            <StackPanel HorizontalAlignment="Center" Orientation="Vertical" Margin="10">
+                                                <StackPanel.IsEnabled>
+                                                    <MultiBinding Converter="{StaticResource BoolORMultiConverter}">
+                                                        <Binding Path="EnableAPI_Http" />
+                                                        <Binding Path="EnableAPI_Https" />
+                                                    </MultiBinding>
+                                                </StackPanel.IsEnabled>
+                                                <CheckBox IsChecked="{Binding Enable_APIBasicAuthentication}" VerticalAlignment="Center" Margin="0,0,0,10">
+                                                    <TextBlock Margin="0,1,0,0">Enable Basic Authentication</TextBlock>
+                                                </CheckBox>
+                                                <StackPanel Orientation="Horizontal" Height="20">
+                                                    <TextBlock Width="60" TextAlignment="Right" Margin="0,0,2,0" >Username:</TextBlock>
+                                                    <TextBox IsEnabled="{Binding Enable_APIBasicAuthentication}" Width="100" Text="{Binding Username_ForAPIBasicAuthentication}"></TextBox>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Height="20">
+                                                    <TextBlock Width="60" TextAlignment="Right" Margin="0,0,2,0" >Password:</TextBlock>
+                                                    <PasswordBox IsEnabled="{Binding Enable_APIBasicAuthentication}" x:Name="pbHTTPSAuthentication" Width="100"></PasswordBox>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </CoreLibWPF:OPBorder>
+                                    </StackPanel>
                                 </StackPanel>
                             </CoreLibWPF:OPBorder>
-                            <CoreLibWPF:OPBorder Margin="3" Grid.Row="1" Grid.Column="0">
+                            <CoreLibWPF:OPBorder Margin="3" Grid.Row="0" Grid.Column="1">
                                 <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <CoreLibWPF:OPH3 HorizontalAlignment="Center" Grid.Row="0" Margin="0,0,0,2" FontWeight="Bold">OPC Settings</CoreLibWPF:OPH3>
                                     <StackPanel Height="22" Orientation="Horizontal">
                                         <TextBlock VerticalAlignment="Center" TextAlignment="Right" Width="200" Margin="0,0,0,0">OPC Classic Subscription Size Limit:</TextBlock>
-                                        <TextBox VerticalAlignment="Center" Text="{Binding OPCClassic_SubscriptionGroupSizeLimit}" Margin="2,0,0,0" Width="80"></TextBox>
+                                        <TextBox x:Name="tbOPCClassicGroupSize" VerticalAlignment="Center" Text="{Binding OPCClassic_SubscriptionGroupSizeLimit, NotifyOnValidationError=True,UpdateSourceTrigger=PropertyChanged}" 
+                                                 ToolTip="If unsure, leave this at 40 (default value)" Margin="2,0,0,0" Width="80"></TextBox>
                                     </StackPanel>
                                     <StackPanel Height="22" Orientation="Horizontal">
                                         <TextBlock VerticalAlignment="Center" TextAlignment="Right" Width="200" Margin="0,0,0,0">OPC UA Subscription Size Limit:</TextBlock>
-                                        <TextBox VerticalAlignment="Center" Text="{Binding OPCUA_SubscriptionGroupSizeLimit}" Margin="2,0,0,0" Width="80"></TextBox>
+                                        <TextBox x:Name="tbOPCUAGroupSize" VerticalAlignment="Center" Text="{Binding OPCUA_SubscriptionGroupSizeLimit, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" 
+                                                 ToolTip="If unsure, leave this at 40 (default value)" Margin="2,0,0,0" Width="80"></TextBox>
+                                    </StackPanel>
+                                </StackPanel>
+                            </CoreLibWPF:OPBorder>
+                            <CoreLibWPF:OPBorder Margin="3" Grid.Row="1" Grid.Column="1">
+                                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Margin="10">
+                                    <CoreLibWPF:OPH3 HorizontalAlignment="Center" Grid.Row="0" Margin="0,0,0,2" FontWeight="Bold">TCP Settings</CoreLibWPF:OPH3>
+                                    <StackPanel Grid.Row="1" Height="25" Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock VerticalAlignment="Center" TextAlignment="Right" Margin="0,0,0,0" >TCP Port:</TextBlock>
+                                        <TextBox x:Name="tbTcpPort"  Text="{Binding Tcp_Port, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Margin="2,0,0,0" Width="80"></TextBox>
+                                    </StackPanel>
+                                    <CheckBox IsChecked="{Binding Enable_Tcp_Authentication}"  HorizontalAlignment="Center" Margin="0,5,0,10">
+                                        <TextBlock Margin="0,1,0,0">Enable Authentication</TextBlock>
+                                    </CheckBox>
+                                    <StackPanel Orientation="Horizontal" Height="20">
+                                        <TextBlock Width="55" TextAlignment="Right" Margin="0,0,2,0" >Username:</TextBlock>
+                                        <TextBox IsEnabled="{Binding Enable_Tcp_Authentication}" Width="100" Text="{Binding Tcp_Username}">
+                                            <!--<TextBox.Text>
+                                                <Binding Path="Tcp_Username" UpdateSourceTrigger="PropertyChanged">
+                                                    <Binding.ValidationRules>
+                                                        <CoreLibWPF:NotNullOrWhiteSpace_ValidationRule />
+                                                    </Binding.ValidationRules>
+                                                </Binding>
+                                            </TextBox.Text>-->
+                                        </TextBox>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Height="20">
+                                        <TextBlock Width="55" TextAlignment="Right" Margin="0,0,2,0" >Password:</TextBlock>
+                                        <PasswordBox IsEnabled="{Binding Enable_Tcp_Authentication}" x:Name="pbTCPAuthentication" Width="100"></PasswordBox>
                                     </StackPanel>
                                 </StackPanel>
                             </CoreLibWPF:OPBorder>
                             <CoreLibWPF:OPBorder Margin="3" Height="45" Grid.Row="2" Grid.ColumnSpan="2">
-                                <CoreLibWPF:OPButton Margin="5" Height="auto" Click="oPBSettings_Save_Click">Save and Apply</CoreLibWPF:OPButton>
+                                <CoreLibWPF:OPButton Margin="5" Height="auto" Click="oPBSettings_Save_Click" Content="Save and Apply">
+                                    <CoreLibWPF:OPButton.IsEnabled>
+                                        <MultiBinding Converter="{StaticResource BoolORToFalseMultiConverter}">
+                                            <Binding ElementName="tbHttpPort" Path="(Validation.HasError)" />
+                                            <Binding ElementName="tbHttpsPort" Path="(Validation.HasError)" />
+                                            <Binding ElementName="tbOPCClassicGroupSize" Path="(Validation.HasError)" />
+                                            <Binding ElementName="tbOPCUAGroupSize" Path="(Validation.HasError)" />
+                                            <Binding ElementName="tbTcpPort" Path="(Validation.HasError)" />
+                                        </MultiBinding>
+                                    </CoreLibWPF:OPButton.IsEnabled>
+                                </CoreLibWPF:OPButton>
                             </CoreLibWPF:OPBorder>
                         </Grid>
-                       <!--<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">sdsadasd</TextBlock>-->
-                        <CoreLibWPF:CentreMessage Visibility="Collapsed" x:Name="cmSettings" MessageProcess="Saving..." MessageSuccess="Save Successful!" ShowDesignTimeMessageProcess="False" />
+                        <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                            <CoreLibWPF:CentreMessage Visibility="Collapsed" x:Name="cmSettings" MessageProcess="Saving..." MessageSuccess="Save Successful!" ShowDesignTimeMessageProcess="false" />
+                            <CoreLibWPF:OPButton Width="150" Visibility="{Binding SettingsError, Converter={StaticResource BoolTrueToVisibilityVisibleElseCollapsedConverter}}" Click="oPBSettings_Retry_Click" >Retry</CoreLibWPF:OPButton>
+                        </StackPanel>
                     </Grid>
                 </TabItem>
                 <TabItem Header="Test Browse OPC UA">

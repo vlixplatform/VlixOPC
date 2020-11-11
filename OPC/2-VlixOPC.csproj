@@ -60,15 +60,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="vlix.ico" />
-    <EmbeddedResource Include="SendToProgramDataDirectory\OPCConfig.xml">
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OPCLib\1-VlixOPCLib.csproj">
       <Project>{300f7a58-72b8-44ab-a7a1-eb79dd999ad8}</Project>
       <Name>1-VlixOPCLib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SendToProgramDataDirectory\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

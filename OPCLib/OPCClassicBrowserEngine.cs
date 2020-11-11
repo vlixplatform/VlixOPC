@@ -451,6 +451,20 @@ namespace VlixOPC
                         {
                             NewRegisteredTag.QualityOK = true;
                             if (readResult.Value is string || readResult.Value.IsNumericType()) NewRegisteredTag.Value = (IComparable)readResult.Value;
+                            else
+                            {
+                                if (readResult.Value is System.Collections.IEnumerable array)
+                                {
+                                    string res = "";                                    
+                                    foreach (var item in array)
+                                    {
+                                        res = res + item.ToString() + ",";
+                                    }
+                                    if (res != "") res.RemoveLastCharacter();
+                                    NewRegisteredTag.Value = res;
+                                }
+                                else NewRegisteredTag.Value = readResult.Value.GetType().ToString();
+                            }
                         }
                         else
                         {
@@ -488,6 +502,21 @@ namespace VlixOPC
                     {
                         Tag.QualityOK = true;
                         if (readResult.Value is string || readResult.Value.IsNumericType()) Tag.Value = (IComparable)readResult.Value;
+                        else
+                        {
+                            if (readResult.Value is System.Collections.IEnumerable array)
+                            {
+                                string res = "";
+                                foreach (var item in array)
+                                {
+                                    res = res + item.ToString() + ",";
+                                }
+                                if (res != "") res.RemoveLastCharacter();
+                                Tag.Value = res;
+                            }
+                            else Tag.Value = readResult.Value.GetType().ToString();
+                            //Tag.Value = readResult.Value.GetType().ToString();
+                        }
                     }
                     else
                     {
